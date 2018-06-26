@@ -21,7 +21,7 @@ abstract public class Shape implements Serializable
     double phi=0;
     byte location1; //локация для внутренних точек
     public String name = null;
-    boolean Visible = true;
+    public boolean Visible = true;
     
     public Shape ()
     {

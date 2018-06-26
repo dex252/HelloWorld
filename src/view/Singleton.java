@@ -49,12 +49,7 @@ public class Singleton extends JPanel implements Propertis //Это single-то�
     {      
         ChoiceMethod();
         ((Canvas)MainWindow.jPanel2).PickUpShape = true;
-               MainWindow.LevelUp.setEnabled(true);
-                MainWindow.LevelDown.setEnabled(true);
-                 MainWindow.LevelMin.setEnabled(true);
-                  MainWindow.LevelMax.setEnabled(true);
-                    MainWindow.Delete.setEnabled(true);
-                     MainWindow.Enter.setEnabled(true);
+               Open();//Разрешить кнопки
         ((Canvas)(MainWindow.jPanel2)).DrawOutside();
     } 
 
@@ -69,6 +64,9 @@ public class Singleton extends JPanel implements Propertis //Это single-то�
             System.out.println(subStr[1]);
             ((Canvas)MainWindow.jPanel2).ConstructShape = ((Canvas)MainWindow.jPanel2).que.get(Integer.parseInt(subStr[1])-1); 
            //Мне нужно поместить текущую фигуру в текстовое окошко
+           MainWindow.type.setText(((Canvas)MainWindow.jPanel2).ConstructShape.type);
+           MainWindow.name.setText(((Canvas)MainWindow.jPanel2).ConstructShape.name);
+           
            // loadPropertis(Canvas.ConstructShape);
            //Ниже передаем все параметры фигуры
  //          jLabel2.setText(Canvas.ConstructShape.x1 + " : " + Canvas.ConstructShape.y1);
@@ -89,12 +87,7 @@ public class Singleton extends JPanel implements Propertis //Это single-то�
     {
         ChoiceMethod();
         ((Canvas)MainWindow.jPanel2).PickUpShape = true;
-               MainWindow.LevelUp.setEnabled(true);
-                MainWindow.LevelDown.setEnabled(true);
-                 MainWindow.LevelMin.setEnabled(true);
-                  MainWindow.LevelMax.setEnabled(true);
-                   MainWindow.Delete.setEnabled(true);
-                    MainWindow.Enter.setEnabled(true);
+            Open();//разрешить кнопки
         ((Canvas)(MainWindow.jPanel2)).DrawOutside();
         //((Singleton)base.jPanel2).ChoiceMenuItemStateChanged(evt);//лол
     }
@@ -103,5 +96,30 @@ public class Singleton extends JPanel implements Propertis //Это single-то�
     void ColorButton(ActionEvent evt) 
     {
         JColorChooser.showDialog(this, TOOL_TIP_TEXT_KEY, Color.yellow);
+    }
+
+    public void Closed() {
+               MainWindow.LevelUp.setEnabled(false);
+                MainWindow.LevelDown.setEnabled(false);
+                 MainWindow.LevelMin.setEnabled(false);
+                  MainWindow.LevelMax.setEnabled(false);
+                    MainWindow.Delete.setEnabled(false);
+                     MainWindow.Enter.setEnabled(false);
+                      MainWindow.name.setText(" ");
+                        MainWindow.name.setEnabled (false);
+                       MainWindow.type.setText(" ");
+                        MainWindow.visible.setEnabled (false);
+    }
+
+    public void Open() {
+        MainWindow.LevelUp.setEnabled(true);
+                MainWindow.LevelDown.setEnabled(true);
+                 MainWindow.LevelMin.setEnabled(true);
+                  MainWindow.LevelMax.setEnabled(true);
+                    MainWindow.Delete.setEnabled(true);
+                     MainWindow.Enter.setEnabled(true);
+                       MainWindow.visible.setEnabled (true);
+                        MainWindow.name.setEnabled (true);
+                      
     }
 }

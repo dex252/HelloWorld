@@ -160,12 +160,7 @@ public class Settings extends JButton implements ActionListener
                 if (que.isEmpty())
                 {
                     ((Canvas)MainWindow.jPanel2).PickUpShape = false;
-               MainWindow.LevelUp.setEnabled(false);
-                MainWindow.LevelDown.setEnabled(false);
-                 MainWindow.LevelMin.setEnabled(false);
-                  MainWindow.LevelMax.setEnabled(false);
-                    MainWindow.Delete.setEnabled(false);
-                     MainWindow.Enter.setEnabled(false);
+                    ((Singleton)MainWindow.jPanel3).Closed();//показываем кнопки
                 }
                 break;
             }

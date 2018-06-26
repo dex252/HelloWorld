@@ -242,12 +242,7 @@ public class Canvas extends JPanel implements MouseMotionListener, MouseListener
                     
                      //ЭТО НОВОЕ
                 PickUpShape = true;
-               MainWindow.LevelUp.setEnabled(true);
-                MainWindow.LevelDown.setEnabled(true);
-                 MainWindow.LevelMin.setEnabled(true);
-                  MainWindow.LevelMax.setEnabled(true);
-                    MainWindow.Delete.setEnabled(true);
-                     MainWindow.Enter.setEnabled(true);
+               ((Singleton)MainWindow.jPanel3).Open();//показываем кнопки
                     //ЕСЛИ РИСУЕМ ФИГУРУ _ ТО АВТОМАТОМ ВЫДЕЛЯЕМ ИМЕННО ЕЕ
                 }
         }
@@ -325,29 +320,20 @@ public class Canvas extends JPanel implements MouseMotionListener, MouseListener
                 if (!Stoper)
                 {
                     MainWindow.number = i;//Записываем номер рассматриваемой фигуры (это номер в очереди)
-                    que.get(i).ChoiceClick(me.getX(),me.getY());
+                    if (ConstructShape.Visible) que.get(i).ChoiceClick(me.getX(),me.getY());//если фигура видимая - смотрим, если нет, то не смотрим
                     System.out.println("## "+i + " название" + ConstructShape.name);
                     MainWindow.ChoiceMenu.select(number);
+                    ((Singleton)MainWindow.jPanel3).ChoiceMethod();
                 }
             }
             if (Stoper==false) 
             {
                 PickUpShape = false;
-               MainWindow.LevelUp.setEnabled(false);
-                MainWindow.LevelDown.setEnabled(false);
-                 MainWindow.LevelMin.setEnabled(false);
-                  MainWindow.LevelMax.setEnabled(false);
-                    MainWindow.Delete.setEnabled(false);
-                     MainWindow.Enter.setEnabled(false);
+                ((Singleton)MainWindow.jPanel3).Closed();//прячем кнопки
             }
             else {
                 PickUpShape = true;
-               MainWindow.LevelUp.setEnabled(true);
-                MainWindow.LevelDown.setEnabled(true);
-                 MainWindow.LevelMin.setEnabled(true);
-                  MainWindow.LevelMax.setEnabled(true);
-                    MainWindow.Delete.setEnabled(true);
-                     MainWindow.Enter.setEnabled(true);
+                 ((Singleton)MainWindow.jPanel3).Open();//показываем кнопки
             }
             draw(que, ConstructShape);
             repaint();
