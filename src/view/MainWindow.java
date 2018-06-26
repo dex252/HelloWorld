@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package view;
 
 import controller.Instruments;
@@ -11,19 +7,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
-/**
- *
- * @author dex25
- */
 public class MainWindow extends javax.swing.JFrame {
     
     ImageIcon icon = new ImageIcon("src/resources/images.PNG");//Иконка кошака
-    static public model.Shape ActionShape = null;//текущая фигура/действие
     static public model.FactoryShape FS = new model.FactoryShape();//объект фабрики создания фигур
-    static public controller.Queue que = new controller.Queue();//que - очередь фигур
     static public double scale = 0, x_shift = 0, y_shift = 0;//scale - коэфф увеличения/сужения, x-,y-_shift - смещения экрана по х и у
     Graphics g = null;
-    static public byte regim = 2;
+    static public byte regim = 0;
     public static byte location = 0;//локация точки
     public static double transp_x, transp_y;//направление изменения точек внутри фигуры
     public static double loc_x, loc_y;//первый клик по локации (стоит запомнить)
@@ -36,7 +26,7 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
         jPanel2.setBackground(Color.WHITE);
         jPanel2.setDoubleBuffered(true);//двойной буфер    
-        ((Canvas)jPanel2).draw(que, ActionShape);
+        ((Canvas)jPanel2).draw(((Canvas)jPanel2).que, ((Canvas)jPanel2).ActionShape);
     }
     
     @SuppressWarnings("unchecked")
@@ -90,12 +80,12 @@ public class MainWindow extends javax.swing.JFrame {
         ColorShape = new java.awt.Label();
         ColorFill = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
-        jButton2 = new javax.swing.JButton();
-        LevelMax = new javax.swing.JButton();
-        LevelMin = new javax.swing.JButton();
-        LevelUp = new javax.swing.JButton();
-        LevelDown = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        Enter = new Settings("Enter", this);
+        LevelMax = new Settings("Max", this);
+        LevelMin = new Settings("Min", this);
+        LevelUp = new Settings("Up", this);
+        LevelDown = new Settings("Down", this);
+        Delete = new Settings("Delete", this);
         label8 = new java.awt.Label();
        // Show = new Instruments("Hide", this);
         HideShow = new Instruments("Show", this);
@@ -139,12 +129,17 @@ public class MainWindow extends javax.swing.JFrame {
 
         typeRegim.setBackground(new java.awt.Color(255, 255, 255));
         typeRegim.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        typeRegim.setText("Лапа");
+        typeRegim.setText("Графика");
 
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel3.setText("Режим:");
 
-        
+        LevelUp.setEnabled(false);
+        LevelDown.setEnabled(false);
+        LevelMin.setEnabled(false);
+        LevelMax.setEnabled(false);
+        Delete.setEnabled(false);
+        Enter.setEnabled(false);
         
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -258,7 +253,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         ColorFill.setText(" ");
 
-        jButton2.setText("Применить");
+        Enter.setText("Применить");
 
         LevelMax.setText("Level MAX");
 
@@ -268,7 +263,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         LevelDown.setText("Level DOWN");
 
-        jButton3.setText("Удалить");
+        Delete.setText("Удалить");
 
         label8.setText("Толщина границы:");
 
@@ -344,12 +339,12 @@ public class MainWindow extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(LevelMax, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
                                 .addComponent(LevelUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jButton2))
+                            .addComponent(Enter))
                         .addGap(43, 43, 43)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(LevelDown, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(LevelMin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(Delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40)
@@ -445,8 +440,8 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(Enter)
+                    .addComponent(Delete))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LevelMax)
@@ -1082,8 +1077,8 @@ public class MainWindow extends javax.swing.JFrame {
     public javax.swing.JTextField Ymax;
     public javax.swing.JTextField Ymin;
     public java.awt.Choice ChoiceMenu;
-    public javax.swing.JButton jButton2;
-    public javax.swing.JButton jButton3;
+    public javax.swing.JButton Enter;
+    public javax.swing.JButton Delete;
     public javax.swing.JButton LevelMax;
     public javax.swing.JButton LevelMin;
     public javax.swing.JButton LevelUp;

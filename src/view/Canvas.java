@@ -23,17 +23,18 @@ public class Canvas extends JPanel implements MouseMotionListener, MouseListener
     int w,h;	
     MainWindow MainWindow;
     static public model.Shape ConstructShape = null;
+    public model.Shape ActionShape = null;//текущая фигура/действие
     boolean Afin = false;//Метка афинных преобразований, false - смещение, true - поворот
     static public boolean DotsWeb = false;//Отметка о необходимости рисования сетки деформации для текущей фигуры
     static public boolean Stoper;//Обработка клика мыши дл выбора фигуры в меню
     static public boolean Choicer = false;//выделение фигуры в рамку
     public boolean PickUpShape = true;//Определяем найдена ли фигиру при клике на полотне, если нет - то не рисуем!
+    static public controller.Queue que = new controller.Queue();//que - очередь фигур
      
     public Canvas(MainWindow base) 
     {  
         this.MainWindow = base;
         img = new BufferedImage (1200, 600,BufferedImage.TYPE_INT_ARGB);  //	TYPE_INT_ARGB Представляет изображение с 8-битными цветовыми компонентами RGBA, упакованными в целые пиксели.
-
         w = getWidth(); 
         h = getHeight(); 	 
         buf = img.getGraphics();
@@ -44,9 +45,9 @@ public class Canvas extends JPanel implements MouseMotionListener, MouseListener
     //отрисовка в буфере
     public void draw(controller.Queue que, model.Shape ActionShape) 
     {
-        buf.setColor(Color.WHITE);
+      buf.setColor(Color.WHITE);
       //  buf.fillRect(0,0, (int) (this.getWidth()), (int) (this.getHeight()));
-       buf.fillRect(0,0, (int) (1150), (int) (600));
+      buf.fillRect(0,0, (int) (1150), (int) (600));
         que.forEach((que1) ->
         {
             que1.paint(buf, scale, x_shift, y_shift);
@@ -129,6 +130,16 @@ public class Canvas extends JPanel implements MouseMotionListener, MouseListener
                 MainWindow.ChoiceMenu.add(ActionShape.name);
                 //Нужно как то выбирать последний добавленный элемент и показывать его в текстбоксе
                 ConstructShape = que.get(que.size()-1);//Пересоздаем фигурку после синглтона
+                
+                //ЭТО НОВОЕ
+                PickUpShape = true;
+               MainWindow.LevelUp.setEnabled(true);
+                MainWindow.LevelDown.setEnabled(true);
+                 MainWindow.LevelMin.setEnabled(true);
+                  MainWindow.LevelMax.setEnabled(true);
+                    MainWindow.Delete.setEnabled(true);
+                     MainWindow.Enter.setEnabled(true);
+                    //ЕСЛИ РИСУЕМ ФИГУРУ _ ТО АВТОМАТОМ ВЫДЕЛЯЕМ ИМЕННО ЕЕ
             }
             
             //Если Action является сложной фигурой и нажата НЕ правая кнопка мыши, то создаем часть сложной фигуры
@@ -228,48 +239,17 @@ public class Canvas extends JPanel implements MouseMotionListener, MouseListener
                     MainWindow.ChoiceMenu.add(ActionShape.name);
                     ((Singleton)MainWindow.jPanel3).ChoiceMethod();
                     ConstructShape = que.get(que.size()-1);//Пересоздаем фигурку после синглтона
+                    
+                     //ЭТО НОВОЕ
+                PickUpShape = true;
+               MainWindow.LevelUp.setEnabled(true);
+                MainWindow.LevelDown.setEnabled(true);
+                 MainWindow.LevelMin.setEnabled(true);
+                  MainWindow.LevelMax.setEnabled(true);
+                    MainWindow.Delete.setEnabled(true);
+                     MainWindow.Enter.setEnabled(true);
+                    //ЕСЛИ РИСУЕМ ФИГУРУ _ ТО АВТОМАТОМ ВЫДЕЛЯЕМ ИМЕННО ЕЕ
                 }
-        }
-    }              
-    //Удаленние выбранного ConstructShape
-    public void jButton6MousePressed(java.awt.event.MouseEvent evt)
-    {                                      
-        if (!que.isEmpty())
-        {
-            //Удаление выбранного в Choice объекта
-         //   System.out.println("Объект #" + (ConstructShape.number - 1) + "удален");
-            System.out.println("Объект #" + (MainWindow.number+1) + "удален"); //number - реальная позиция фигуры в очереди
-            //  que.remove(ConstructShape.number - 1);
-            que.remove(MainWindow.number);//разобраться с удалением первой фигуры до изменений в очереди
-            //Смещение номеров в очереди фигур после удаления элемента
-          /*  for (int i = 0; i<que.size();i++)
-            {
-                ConstructShape = que.get(i);
-               // ConstructShape.number = i+1;
-               ((MainWindow)base).number = i;
-                que.set(i, ConstructShape);
-            }*/
-            //Поторное заполнение ChoiceMenu
-            MainWindow.ChoiceMenu.removeAll();
-            for (int i = 0; i<que.size();i++)
-            {
-                MainWindow.number = i;
-                ActionShape = que.get(i);
-                ActionShape.name = ActionShape.type + " " + (MainWindow.number+1);//имя на 1 больше истинного значения
-               // MainWindow.ChoiceMenu.add(ActionShape.type + " " + ActionShape.number);
-               //MainWindow.ChoiceMenu.add(ActionShape.type + " " + ((MainWindow)base).number);
-               MainWindow.ChoiceMenu.add(ActionShape.name);
-            }
-            ConstructShape = null;
-            ActionShape = null;
-            draw(que, ActionShape);
-            repaint();     
-            //Повтор блока в ChoiceMenu 
-            ((Singleton)MainWindow.jPanel3).ChoiceMethod();
-        }
-        else 
-        {
-            System.out.println("Нужно бодьше фигур");
         }
     }                               
     
@@ -284,7 +264,7 @@ public class Canvas extends JPanel implements MouseMotionListener, MouseListener
     {
         if (regim==0)     
         {
-            if (MainWindow.ActionShape != null)
+            if (ActionShape != null)
             {
                 ActionShape.LastClick(evt.getX(),evt.getY()); 
                 if (evt.getX()>0)
@@ -357,6 +337,8 @@ public class Canvas extends JPanel implements MouseMotionListener, MouseListener
                 MainWindow.LevelDown.setEnabled(false);
                  MainWindow.LevelMin.setEnabled(false);
                   MainWindow.LevelMax.setEnabled(false);
+                    MainWindow.Delete.setEnabled(false);
+                     MainWindow.Enter.setEnabled(false);
             }
             else {
                 PickUpShape = true;
@@ -364,6 +346,8 @@ public class Canvas extends JPanel implements MouseMotionListener, MouseListener
                 MainWindow.LevelDown.setEnabled(true);
                  MainWindow.LevelMin.setEnabled(true);
                   MainWindow.LevelMax.setEnabled(true);
+                    MainWindow.Delete.setEnabled(true);
+                     MainWindow.Enter.setEnabled(true);
             }
             draw(que, ConstructShape);
             repaint();

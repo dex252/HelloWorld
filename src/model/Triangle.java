@@ -14,7 +14,7 @@ public class Triangle extends Shape
     
     public Triangle ()
     {
-       this.type = "Trangle";
+       this.type = "Triangle";
     }
 
     @Override

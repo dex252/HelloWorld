@@ -210,7 +210,7 @@ public class Polygon extends BreakLine
            // System.out.println("Найдена фигура типа " + type + " номер #" + number);
            System.out.println("Найдена фигура типа " + type + " номер #" + view.MainWindow.number);//static
             //Блок отбора по номеру number
-            view.Canvas.ConstructShape = que.get(view.MainWindow.number); //static
+             view.Canvas.ConstructShape = view.Canvas.que.get(view.MainWindow.number); //static
  //           ShowName.setVisible(true);
  //           ShowName.setText(view.Canvas.ConstructShape.name);
         }

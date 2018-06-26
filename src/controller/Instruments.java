@@ -3,9 +3,7 @@ package controller;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import static view.Canvas.ConstructShape;
 import view.*;
-import static view.MainWindow.que;
 
 
 public class Instruments extends JButton implements ActionListener
@@ -54,10 +52,10 @@ public class Instruments extends JButton implements ActionListener
                     MainWindow.regim = 0;
                     MainWindow.typeRegim.setText ("Графика"); 
 
-                    if (ConstructShape != null)
+                    if (((Canvas)MainWindow.jPanel2).ConstructShape != null)
                     {
                      //  que.set(que.size()-1, ConstructShape); //Убрал, т.к. конфликтует с синглтоном
-                       ((Canvas)MainWindow.jPanel2).draw(que, ConstructShape);
+                       ((Canvas)MainWindow.jPanel2).draw(((Canvas)MainWindow.jPanel2).que, ((Canvas)MainWindow.jPanel2).ConstructShape);
                        repaint();
                     }
                 }
@@ -85,14 +83,14 @@ public class Instruments extends JButton implements ActionListener
                 {
                     MainWindow.regim = 4;
                     MainWindow.typeRegim.setText ("Точки"); 
-                   ((Canvas)MainWindow.jPanel2).draw(que, ConstructShape);
+                   ((Canvas)MainWindow.jPanel2).draw(((Canvas)MainWindow.jPanel2).que, ((Canvas)MainWindow.jPanel2).ConstructShape);
                     repaint();
                 }
                 else 
                 {
                   MainWindow.regim = 0;
                   MainWindow.typeRegim.setText ("Графика"); 
-                  ((Canvas)MainWindow.jPanel2).draw(que, ConstructShape);
+                  ((Canvas)MainWindow.jPanel2).draw(((Canvas)MainWindow.jPanel2).que, ((Canvas)MainWindow.jPanel2).ConstructShape);
                   repaint();
                 }
                 break;

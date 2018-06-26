@@ -78,12 +78,12 @@ public class Ellipse extends Shape
       //  if  ((ac>1)||(bc>1) && ( (ac<1000) || (bc <1000) ))
       //если длина становится больше, то тогда делаем шаг больше по x и y
       //а до этого попробую вариант на проверку точек при вычислении, если они будут пободать в координаты экрана (1495,600) - тогда заносим их в массив, если нет, то нет)
-      if (ac>1000 | bc >1000)
+      if (ac>1200 | bc >1200)
       {                                              
-          if (ac>1000){
-              scale=1000/ac;
+          if (ac>1200){
+              scale=1200/ac;
           }else{
-             scale=1000/bc;
+             scale=1200/bc;
           }
           ac=(int) (ac*scale);
           bc=(int) (bc*scale);
@@ -177,7 +177,7 @@ public class Ellipse extends Shape
                 dots.y = (xy.get(i).x - x0c) * Math.sin(phi) - (xy.get(i).y - y0c) * Math.cos(phi) + y0c;
                 xy.set(i, dots);
             }
-
+/*
             if (!xy.isEmpty())
             {
                 g.setColor(Color.black);
@@ -197,7 +197,7 @@ public class Ellipse extends Shape
                 dots.y = (xy.get(i).x - x0c) * Math.sin(phi) - (xy.get(i).y - y0c) * Math.cos(phi) + y0c;
                 xy.set(i, dots);
             }
-
+*/
             if (!xy.isEmpty())
             {
                 g.setColor(Color.black);
@@ -237,7 +237,7 @@ public class Ellipse extends Shape
         x0c = x0;
         y0c = y0;
         
-           if (ac>1000 | bc >1000)
+    /*       if (ac>1000 | bc >1000)
       {                                              
           if (ac>1000){
               scale=1000/ac;
@@ -247,7 +247,7 @@ public class Ellipse extends Shape
           ac=(int) (ac*scale);
           bc=(int) (bc*scale);
       } 
-       
+       */
         
         dots = new Dots();
         x = 0;
@@ -368,7 +368,7 @@ public class Ellipse extends Shape
         phi2 = alpha-beta;
         System.out.println("Угол phi = " + Math.toDegrees(phi2));
         
-        if (ac>1000 | bc >1000)
+   /*     if (ac>1000 | bc >1000)
       {                                              
           if (ac>1000){
               scale=1000/ac;
@@ -377,7 +377,7 @@ public class Ellipse extends Shape
           }
           ac=(int) (ac*scale);
           bc=(int) (bc*scale);
-      }  
+      }  */
         
         dots = new Dots();
         int x = 0;
@@ -822,7 +822,7 @@ public class Ellipse extends Shape
           
             System.out.println("Найдена фигура типа " + type + " номер #" + view.MainWindow.number);//static
             //Блок отбора по номеру number
-            view.Canvas.ConstructShape = que.get(view.MainWindow.number); //static
+            view.Canvas.ConstructShape = view.Canvas.que.get(view.MainWindow.number); //static
  //           ShowName.setVisible(true);
  //           ShowName.setText(view.Canvas.ConstructShape.name);
         }

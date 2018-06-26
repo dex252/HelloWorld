@@ -53,6 +53,6 @@ public class ShapeButton extends JButton implements ActionListener
     {
         model.Shape Shape = null;
         Shape = FactoryShape.input(this.type);
-        base.ActionShape=Shape;
+        ((view.Canvas)base.jPanel2).ActionShape=Shape;
     }
 }

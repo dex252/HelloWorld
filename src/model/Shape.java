@@ -271,96 +271,7 @@ abstract public class Shape implements Serializable
             }
         }
     }
-     
-   /* //Переписываем точку фигуры в новые координаты на сетке
-    //Работает без проверок на границы
-    public Dots Transp(double x, double y)//тут координат фигуры (мировые)
-    {
-        Dots dots = new Dots();
-        TranspInside(x , y);//известна точка старта, в этом методе узнаем является ли точка частью локации
-        dots.x = x;
-        dots.y = y;
-        
-        if (location == 1) 
-        {
-            if ((location1==1)||(location1==2)||(location1==3)||(location1==4)||(location1==7))
-            {
-                dots.x = x - transp_x;
-                dots.y = y - transp_y;
-            }
-        }
-        
-        if (location == 2) 
-        {
-            if ((location1==1)||(location1==2)||(location1==3))
-            {
-                dots.x = x;
-                dots.y = y - transp_y;
-            }
-        }
-        
-        if (location == 3) 
-        {
-            if ((location1==1)||(location1==2)||(location1==3)||(location1==6)||(location1==9))
-            {
-                dots.x = x - transp_x;
-                dots.y = y - transp_y;
-            }  
-        }
-        
-        if (location == 4) 
-        {
-            if ((location1==1)||(location1==4)||(location1==7))
-            {
-                dots.x = x - transp_x;
-                dots.y = y;
-            }
-            
-        }
-        
-        if (location == 5) 
-        { 
-            dots.x = x - transp_x;
-            dots.y = y - transp_y;
-        }
-        
-        if (location == 6) 
-        {
-            if ((location1==3)||(location1==6)||(location1==9))
-            {
-                dots.x = x - transp_x;
-                dots.y = y;
-            }
-        }
-        
-        if (location == 7) 
-        {
-            if ((location1==1)||(location1==4)||(location1==7)||(location1==8)||(location1==9))
-            {
-                dots.x = x - transp_x;
-                dots.y = y - transp_y;
-            }
-        }
-        
-        if (location == 8) 
-        {
-            if ((location1==7)||(location1==8)||(location1==9))
-            {
-                dots.x = x;
-                dots.y = y - transp_y;
-            }
-        }
-        
-        if (location == 9) 
-        {
-            if ((location1==3)||(location1==6)||(location1==9)||(location1==8)||(location1==7))
-            {
-                dots.x = x - transp_x;
-                dots.y = y - transp_y;
-            }
-        }
-       return dots;
-    }  */
+
     //За основу транспонирования точек взят прямоугольник
     public Dots Transp(double x, double y)//тут координат фигуры (мировые)
     {
@@ -643,7 +554,7 @@ abstract public class Shape implements Serializable
            System.out.println("Найдена фигура типа " + type + " номер #" + view.MainWindow.number);//static - также реальная позиция в очереди
             //Блок отбора по номеру number
            // view.Canvas.ConstructShape = que.get(number-1); 
-           view.Canvas.ConstructShape = que.get(view.MainWindow.number); //static - реальная позиция фигуры в очереди
+           view.Canvas.ConstructShape = view.Canvas.que.get(view.MainWindow.number); //static - реальная позиция фигуры в очереди
  //           ShowName.setVisible(true);
           //  ShowName.setText(type + " " + number);
 //            ShowName.setText(name);
