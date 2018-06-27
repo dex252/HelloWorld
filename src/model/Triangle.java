@@ -2,11 +2,12 @@
 package model;
 
 import java.awt.*;
+import java.io.Serializable;
 import static view.MainWindow.*;
 
-public class Triangle extends Shape
+public class Triangle extends Shape implements Serializable
 {
-
+    private static final long serialVersionUID = 1L;   
     static
     {
         FactoryShape.register(Triangle.class);//Передача класса

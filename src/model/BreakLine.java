@@ -3,10 +3,12 @@ package model;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.Serializable;
 import static view.MainWindow.*;
 
-public class BreakLine extends Shape
+public class BreakLine extends Shape implements Serializable
 {
+    private static final long serialVersionUID = 1L;
     Dots dots = new Dots();
     
      static

@@ -3,11 +3,13 @@ package model;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.Serializable;
 import static view.MainWindow.*;
 
 
-public class Polygon extends BreakLine
+public class Polygon extends BreakLine implements Serializable
 {
+   private static final long serialVersionUID = 1L;
    static
     {
         FactoryShape.register(Polygon.class);//Передача класса

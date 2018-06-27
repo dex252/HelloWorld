@@ -7,11 +7,13 @@ package model;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.Serializable;
 import java.util.ArrayList;
 import static view.MainWindow.*;
 
-public class Bezier extends BreakLine
+public class Bezier extends BreakLine implements Serializable
 {
+    private static final long serialVersionUID = 1L;
     Dots dots2 = new Dots();
     double step = 0.005;  //шаг
     int n = (int) Math.round(1/step);//шаг

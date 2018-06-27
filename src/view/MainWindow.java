@@ -5,10 +5,20 @@ import controller.Instruments;
 import controller.*;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.InvalidObjectException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Application;
 import javax.swing.ImageIcon;
 
 public class MainWindow extends javax.swing.JFrame {
     
+    public Serializator serialisator = new Serializator();
+    AutoSave autosave = new AutoSave (this);
     ImageIcon icon = new ImageIcon("src/resources/images.PNG");//Иконка кошака
     static public model.FactoryShape FS = new model.FactoryShape();//объект фабрики создания фигур
     static public double scale = 0, x_shift = 0, y_shift = 0;//scale - коэфф увеличения/сужения, x-,y-_shift - смещения экрана по х и у
@@ -19,7 +29,7 @@ public class MainWindow extends javax.swing.JFrame {
     public static double loc_x, loc_y;//первый клик по локации (стоит запомнить)
     static public boolean Deformat = false;
     public static int number;//Номер активной фигуры
-    boolean show = true; //видимость синглтона
+    boolean show = true; //видимость синглтона 
     
     public MainWindow() 
     {
@@ -27,6 +37,8 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel2.setBackground(Color.WHITE);
         jPanel2.setDoubleBuffered(true);//двойной буфер    
         ((Canvas)jPanel2).draw(((Canvas)jPanel2).que, ((Canvas)jPanel2).ActionShape);
+        autosave.start();
+        System.out.println("Поток ушёл на пробежку");
     }
     
     @SuppressWarnings("unchecked")
@@ -90,9 +102,92 @@ public class MainWindow extends javax.swing.JFrame {
        // Show = new Instruments("Hide", this);
         HideShow = new Instruments("Show", this);
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-
+        fileMenu = new javax.swing.JMenu();
+        NewFile = new javax.swing.JMenuItem("Создать");
+        Save= new javax.swing.JMenuItem("Сохранить");
+        SaveAs= new javax.swing.JMenuItem("Сохранить как");
+        Load= new javax.swing.JMenuItem("Открыть");
+        AutoLoad= new javax.swing.JMenuItem("Загрузить autosave");
+        
+        fileMenu.add(NewFile);
+        fileMenu.add(Load);
+        fileMenu.addSeparator();
+        fileMenu.add(Save);
+        fileMenu.add(SaveAs);
+        fileMenu.addSeparator();
+        fileMenu.add(AutoLoad);
+        
+        NewFile.addActionListener(new ActionListener (){
+            public void actionPerformed(ActionEvent e)
+                {
+                 System.out.println("Новый файл");
+            }
+        });
+        
+        Load.addActionListener(new ActionListener ()
+        {
+            public void actionPerformed(ActionEvent e)
+                {
+                    try 
+                    {
+                        System.out.println("Открыть");
+                        ((Canvas)jPanel2).que = serialisator.deserialization ("Save");
+                        ChoiceMenu.removeAll();
+                        ((Canvas)jPanel2).que.forEach((que1) ->
+                         {
+                          ChoiceMenu.add(que1.name);
+                          ((Canvas)jPanel2).ConstructShape = que1;
+                         }); 
+                        ((Canvas)jPanel2).DrawOutside();
+                    } 
+                    catch (InvalidObjectException ex) 
+                    {
+                        Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+               }
+        });
+        
+        Save.addActionListener(new ActionListener (){
+            public void actionPerformed(ActionEvent e)
+                {
+                 System.out.println("Сохранить");
+                 serialisator.serialization (((Canvas)jPanel2).que, "Save");
+            }
+        });
+        
+        SaveAs.addActionListener(new ActionListener (){
+            public void actionPerformed(ActionEvent e)
+                {
+                 System.out.println("Сохранить как");
+            }
+        });
+        
+        AutoLoad.addActionListener(new ActionListener (){
+            public void actionPerformed(ActionEvent e)
+                {
+                    try
+                    {
+                        System.out.println("Автозагрузка");
+                        //serialisator.serialization (((Canvas)jPanel2).que, "/autosave/autosave");
+                        ((Canvas)jPanel2).que = serialisator.deserialization ("/autosave/autosave");
+                        ChoiceMenu.removeAll();
+                        ((Canvas)jPanel2).que.forEach((que1) ->
+                        {
+                        ChoiceMenu.add(que1.name);
+                        ((Canvas)jPanel2).ConstructShape = que1;
+                        }); 
+                        ((Canvas)jPanel2).DrawOutside();
+                        } 
+                    catch (InvalidObjectException ex) 
+                    {
+                       // Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println("Autosave не найден");
+                    }
+            }
+        });
+        
+        this.setTitle("Которедактор - Безымянный");
+   
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(icon.getImage());
         setLocation(new java.awt.Point(180, 30));
@@ -472,11 +567,9 @@ public class MainWindow extends javax.swing.JFrame {
            
         );
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        fileMenu.setText("Файл");
+        jMenuBar1.add(fileMenu);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
         
@@ -500,8 +593,21 @@ public class MainWindow extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         
-       
-       
+        ChoiceMenu.addItemListener(new java.awt.event.ItemListener() 
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) 
+            {
+                ((Singleton)(jPanel3)).ChoiceMenuItemStateChanged(evt);
+            }
+        });
+        setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter(){
+        public void windowClosing(WindowEvent evt)
+        {
+           autosave.stop();
+           System.exit(0);
+        }
+});
         pack();
     }//
    /*
@@ -572,6 +678,14 @@ public class MainWindow extends javax.swing.JFrame {
         setLocation(new java.awt.Point(180, 30));
         setMinimumSize(new java.awt.Dimension(1200, 605));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         Line.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Line.png"))); // NOI18N
 
@@ -954,10 +1068,19 @@ public class MainWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosing
 */
     /**
      * @param args the command line arguments
      */
+                  
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1084,9 +1207,13 @@ public class MainWindow extends javax.swing.JFrame {
     public javax.swing.JButton LevelUp;
     public javax.swing.JButton LevelDown;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem NewFile;
+    private javax.swing.JMenuItem Save;
+    private javax.swing.JMenuItem SaveAs;
+    private javax.swing.JMenuItem Load;
+    private javax.swing.JMenuItem AutoLoad;
     public javax.swing.JPanel jPanel1;
     public javax.swing.JPanel jPanel2;
     public javax.swing.JPanel jPanel3;//

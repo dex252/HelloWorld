@@ -324,6 +324,7 @@ public class Canvas extends JPanel implements MouseMotionListener, MouseListener
                     System.out.println("## "+i + " название" + ConstructShape.name);
                     MainWindow.ChoiceMenu.select(number);
                     ((Singleton)MainWindow.jPanel3).ChoiceMethod();
+                    
                 }
             }
             if (Stoper==false) 

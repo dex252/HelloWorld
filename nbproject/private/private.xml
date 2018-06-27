@@ -3,8 +3,28 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Projects/HelloWorld/src/resources/Ellipse.png</file>
+            <file>file:/D:/Projects/HelloWorld/src/model/Bezier.java</file>
+            <file>file:/D:/Projects/HelloWorld/src/controller/Queue.java</file>
+            <file>file:/D:/Projects/HelloWorld/src/controller/Serializator.java</file>
+            <file>file:/D:/Projects/HelloWorld/src/model/Line.java</file>
+            <file>file:/D:/Projects/HelloWorld/src/model/Dots.java</file>
             <file>file:/D:/Projects/HelloWorld/src/view/MainWindow.java</file>
+            <file>file:/D:/Projects/HelloWorld/src/controller/Settings.java</file>
+            <file>file:/D:/Projects/HelloWorld/src/model/BreakLine.java</file>
+            <file>file:/D:/Projects/HelloWorld/src/controller/Shift.java</file>
+            <file>file:/D:/Projects/HelloWorld/src/model/Polygon.java</file>
+            <file>file:/D:/Projects/HelloWorld/src/view/Canvas.java</file>
+            <file>file:/D:/Projects/HelloWorld/src/model/Ellipse.java</file>
+            <file>file:/D:/Projects/HelloWorld/src/view/Propertis.java</file>
+            <file>file:/D:/Projects/HelloWorld/src/resources/Ellipse.png</file>
+            <file>file:/D:/Projects/HelloWorld/src/controller/AutoSave.java</file>
+            <file>file:/D:/Projects/HelloWorld/src/model/FactoryShape.java</file>
+            <file>file:/D:/Projects/HelloWorld/src/view/Singleton.java</file>
+            <file>file:/D:/Projects/HelloWorld/src/model/Triangle.java</file>
+            <file>file:/D:/Projects/HelloWorld/src/controller/ShapeButton.java</file>
+            <file>file:/D:/Projects/HelloWorld/src/model/Rectangle.java</file>
+            <file>file:/D:/Projects/HelloWorld/src/controller/Instruments.java</file>
+            <file>file:/D:/Projects/HelloWorld/src/model/Shape.java</file>
         </group>
     </open-files>
 </project-private>

@@ -10,6 +10,7 @@ import static view.MainWindow.*;
 abstract public class Shape implements Serializable
 {
     //public byte choice;
+    private static final long serialVersionUID = 1L;
     public double x1 = 0, x2 = 0;
     public double y1 = 0, y2 = 0;
     public ArrayList <Dots> xy = new ArrayList();

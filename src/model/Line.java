@@ -2,10 +2,12 @@
 package model;
 
 import java.awt.*;
+import java.io.Serializable;
 import static view.MainWindow.*;
 
-public class Line extends Shape
+public class Line extends Shape implements Serializable
 {  
+    private static final long serialVersionUID = 1L;
     static
     { 
         FactoryShape.register(Line.class);

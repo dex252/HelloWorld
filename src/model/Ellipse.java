@@ -2,11 +2,13 @@
 package model;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import static view.MainWindow.*;
 
-public class Ellipse extends Shape
+public class Ellipse extends Shape implements Serializable
 {
+    private static final long serialVersionUID = 1L;
     int x0 ,y0;//истинный центр
     int x0c, y0c;//дополнительный центр
     int a, b; //мировые полуоси

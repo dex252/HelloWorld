@@ -3,9 +3,11 @@ package model;
 import static view.MainWindow.*;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class Rectangle extends Shape
+public class Rectangle extends Shape implements Serializable
 {   
+    private static final long serialVersionUID = 1L;
     static
     {
         FactoryShape.register(Rectangle.class);//Передача класса
