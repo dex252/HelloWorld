@@ -7,6 +7,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.InvalidObjectException;
@@ -85,7 +88,7 @@ public class MainWindow extends javax.swing.JFrame {
         label9 = new java.awt.Label();
         jSeparator2 = new javax.swing.JSeparator();
         TypeBorder = new javax.swing.JButton();
-        ColorBorder = new javax.swing.JButton();
+        ColorBorder = new SmileShape("ColorBorder", this);
         GageBorder = new javax.swing.JTextField();
         label12 = new java.awt.Label();
         TypeFill = new javax.swing.JButton();
@@ -108,7 +111,34 @@ public class MainWindow extends javax.swing.JFrame {
         SaveAs= new javax.swing.JMenuItem("Сохранить как");
         Load= new javax.swing.JMenuItem("Открыть");
         AutoLoad= new javax.swing.JMenuItem("Загрузить autosave");
+         shiftx = new java.awt.Label(); 
+         shifty = new java.awt.Label();
+         Colors = new javax.swing.JColorChooser();
+         
         
+      this.add(Colors);
+      Colors.setLocation(525, 340);
+      Colors.setSize(420, 240);
+      Colors.setVisible(false);
+      
+         
+        Xmax.setEditable(false);
+           Xmin.setEditable(false);
+              Ymax.setEditable(false);
+                 Ymin.setEditable(false);
+         
+        shiftx.setSize(34,20);
+        shiftx.setBackground(Color.white);
+        shiftx.setLocation(195,370);
+        shiftx.setText(""+x_shift);
+        jPanel1.add(shiftx);
+         
+        shifty.setSize(34,20);
+        shifty.setBackground(Color.white);
+        shifty.setLocation(195,392);
+        shifty.setText(""+y_shift);
+        jPanel1.add(shifty);
+         
         fileMenu.add(NewFile);
         fileMenu.add(Load);
         fileMenu.addSeparator();
@@ -117,6 +147,27 @@ public class MainWindow extends javax.swing.JFrame {
         fileMenu.addSeparator();
         fileMenu.add(AutoLoad);
         
+        visible.addItemListener(new ItemListener() 
+        {
+            public void itemStateChanged(ItemEvent e) 
+            {
+                ((Singleton)jPanel3).CheckBox();
+                ((Canvas)(jPanel2)).DrawOutside();
+            }
+        }
+        );
+         
+      name.addKeyListener(new java.awt.event.KeyAdapter()
+      {
+          public void keyPressed(KeyEvent e)
+          {
+              int key = e.getKeyCode();
+               if (key == KeyEvent.VK_ENTER)
+               { 
+                   ((Singleton)jPanel3).SetName();
+               }
+          }
+      });
         NewFile.addActionListener(new ActionListener (){
             public void actionPerformed(ActionEvent e)
                 {
@@ -235,6 +286,9 @@ public class MainWindow extends javax.swing.JFrame {
         LevelMax.setEnabled(false);
         Delete.setEnabled(false);
         Enter.setEnabled(false);
+        visible.setEnabled(false);
+        ColorBorder.setEnabled(false);
+       
         
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -298,11 +352,8 @@ public class MainWindow extends javax.swing.JFrame {
 
         label2.setText("Тип фигуры:");
 
-        type.setText("type");
 
         label4.setText("Видимость:");
-
-        name.setText("name");
 
         label3.setText("Высота:");
 
@@ -795,6 +846,12 @@ public class MainWindow extends javax.swing.JFrame {
 
         label4.setText("Видимость:");
 
+        visible.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                visibleMouseReleased(evt);
+            }
+        });
+
         name.setText("name");
 
         label3.setText("Высота:");
@@ -1076,11 +1133,15 @@ public class MainWindow extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosing
+
+    private void visibleMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_visibleMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_visibleMouseReleased
 */
     /**
      * @param args the command line arguments
      */
-                  
+             
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1175,14 +1236,14 @@ public class MainWindow extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
  */
     private javax.swing.JButton Bezier;
-    private javax.swing.JButton ColorBorder;
-    private javax.swing.JButton ColorFill;
-    private java.awt.Label ColorShape;
+    public javax.swing.JButton ColorBorder;
+    public javax.swing.JButton ColorFill;
+    public java.awt.Label ColorShape;
     private javax.swing.JButton Deformation;
     private javax.swing.JButton Ellipse;
-    private javax.swing.JTextField GageBorder;
+    public javax.swing.JTextField GageBorder;
     private javax.swing.JButton Hand;
-    private java.awt.Label Height;
+    public java.awt.Label Height;
     public javax.swing.JButton HideShow;
    // public javax.swing.JButton Show;
     private java.awt.Label Label7;
@@ -1194,7 +1255,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton Triangle;
     private javax.swing.JButton TypeBorder;
     private javax.swing.JButton TypeFill;
-    private java.awt.Label Width;
+    public java.awt.Label Width;
     public javax.swing.JTextField Xmax;
     public javax.swing.JTextField Xmin;
     public javax.swing.JTextField Ymax;
@@ -1216,7 +1277,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem AutoLoad;
     public javax.swing.JPanel jPanel1;
     public javax.swing.JPanel jPanel2;
-    public javax.swing.JPanel jPanel3;//
+    public javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -1237,4 +1298,7 @@ public class MainWindow extends javax.swing.JFrame {
     public java.awt.Label type;
     public javax.swing.JLabel typeRegim;
     public javax.swing.JCheckBox visible;
+    static public java.awt.Label shiftx;
+    static public java.awt.Label shifty;
+    public javax.swing.JColorChooser Colors;
 }

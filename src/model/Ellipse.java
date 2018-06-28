@@ -69,6 +69,8 @@ public class Ellipse extends Shape implements Serializable
     @Override
     public void paint(Graphics g, double scale, double x_shift, double y_shift)
     {
+    if (Visible)
+        {
         ac = (int) (a/Math.exp(scale));
         bc = (int) (b/Math.exp(scale));
         x0c = (int) (x0/Math.exp(scale)-x_shift);
@@ -81,15 +83,18 @@ public class Ellipse extends Shape implements Serializable
       //если длина становится больше, то тогда делаем шаг больше по x и y
       //а до этого попробую вариант на проверку точек при вычислении, если они будут пободать в координаты экрана (1495,600) - тогда заносим их в массив, если нет, то нет)
       if (ac>1200 | bc >1200)
-      {                                              
-          if (ac>1200){
-              scale=1200/ac;
-          }else{
-             scale=1200/bc;
-          }
-          ac=(int) (ac*scale);
-          bc=(int) (bc*scale);
-      }  
+       {                                              
+            if (ac>1200)
+            {
+               scale=1200/ac;
+            }
+            else
+            {
+              scale=1200/bc;
+            }
+            ac=(int) (ac*scale);
+            bc=(int) (bc*scale);
+        }   
         {
             Dots dots;
             int x = 0;
@@ -218,7 +223,7 @@ public class Ellipse extends Shape implements Serializable
         Check();
         if ((view.MainWindow.regim == 4)&&(view.Canvas.DotsWeb)) paintCheck(g);
         if ((view.Canvas.Choicer)&&(view.MainWindow.regim != 4)) ChoiceWeb(g);
-            
+        }  
     } 
     
     @Override

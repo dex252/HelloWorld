@@ -19,13 +19,13 @@ public class Serializator
             {
             oos = new ObjectOutputStream(fos);
             oos.writeObject(que);
-            System.out.println("Серилизация прошла успешно");
+            System.out.println("Сериализация прошла успешно");
             }
         } 
         catch (FileNotFoundException ex)
         {
             Logger.getLogger(Serializator.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Косяк во время серилизации");
+            System.out.println("Косяк во время сериализации");
         }
         catch (IOException e)
         {
@@ -61,7 +61,7 @@ public class Serializator
             } 
         catch (FileNotFoundException ex) 
         {
-            //Logger.getLogger(Serializator.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Serializator.class.getName()).log(Level.SEVERE, null, ex);
         }
         catch (IOException e)
         {
@@ -70,7 +70,7 @@ public class Serializator
         }
         catch (ClassNotFoundException ex) 
         {
-         //   Logger.getLogger(Serializator.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Serializator.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Класс не найден");
         }
         finally 
@@ -82,7 +82,7 @@ public class Serializator
             }
             catch (IOException ex)
             {
-                // Logger.getLogger(Serializator.class.getName()).log(Level.SEVERE, null, ex);
+                 Logger.getLogger(Serializator.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         throw new   InvalidObjectException("Объект поврежден");

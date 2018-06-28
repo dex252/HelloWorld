@@ -30,7 +30,8 @@ public class Canvas extends JPanel implements MouseMotionListener, MouseListener
     static public boolean Choicer = false;//выделение фигуры в рамку
     public boolean PickUpShape = true;//Определяем найдена ли фигиру при клике на полотне, если нет - то не рисуем!
     static public controller.Queue que = new controller.Queue();//que - очередь фигур
-     
+    int globalNumber = 1; 
+    
     public Canvas(MainWindow base) 
     {  
         this.MainWindow = base;
@@ -114,7 +115,7 @@ public class Canvas extends JPanel implements MouseMotionListener, MouseListener
             {
                 que.add(ActionShape);//сюда я воткнул запись сложной фигуры
                 MainWindow.number = que.size();
-                ActionShape.name = ActionShape.type + " " + MainWindow.number;
+                ActionShape.name = ActionShape.type + " " + globalNumber;
                 ConstructShape = que.get(que.size()-1);
                // ConstructShape.name = ConstructShape.type + ((MainWindow)base).number;
                // ConstructShape.number = que.size();
@@ -125,21 +126,19 @@ public class Canvas extends JPanel implements MouseMotionListener, MouseListener
                 //Аналогичная запись в строке 199
                 MainWindow.number = que.size();
                // ActionShape.number = que.size();
-                ActionShape.name = ActionShape.type + " " + MainWindow.number;
+                ActionShape.name = ActionShape.type + " " + globalNumber;
                 MainWindow.number = que.size()-1;//для возможности удаления фигуры с первого клика  
                 MainWindow.ChoiceMenu.add(ActionShape.name);
+                MainWindow.ChoiceMenu.select(que.size()-1);
+                ((Singleton)MainWindow.jPanel3).ChoiceMethod();
                 //Нужно как то выбирать последний добавленный элемент и показывать его в текстбоксе
                 ConstructShape = que.get(que.size()-1);//Пересоздаем фигурку после синглтона
                 
                 //ЭТО НОВОЕ
                 PickUpShape = true;
-               MainWindow.LevelUp.setEnabled(true);
-                MainWindow.LevelDown.setEnabled(true);
-                 MainWindow.LevelMin.setEnabled(true);
-                  MainWindow.LevelMax.setEnabled(true);
-                    MainWindow.Delete.setEnabled(true);
-                     MainWindow.Enter.setEnabled(true);
+                ((Singleton)MainWindow.jPanel3).Open();
                     //ЕСЛИ РИСУЕМ ФИГУРУ _ ТО АВТОМАТОМ ВЫДЕЛЯЕМ ИМЕННО ЕЕ
+                    globalNumber++;
             }
             
             //Если Action является сложной фигурой и нажата НЕ правая кнопка мыши, то создаем часть сложной фигуры
@@ -220,8 +219,9 @@ public class Canvas extends JPanel implements MouseMotionListener, MouseListener
                 {            
                     //сюда я воткнул запись фигуры                    
                     que.add(ActionShape);
-                   MainWindow.number = que.size();
-                    ActionShape.name = ActionShape.type + " " + MainWindow.number;
+                    MainWindow.number = que.size();
+                    ActionShape.name = ActionShape.type + " " + globalNumber;
+                    
                     ConstructShape = que.get(que.size()-1);
                     //ConstructShape.number = que.size();
                    // ((MainWindow)base).number = que.size();
@@ -232,11 +232,12 @@ public class Canvas extends JPanel implements MouseMotionListener, MouseListener
                     //Добавляем фигуру в список под номером последнего добавленного элемента в очереди, это норма
                     //Реализовать при удалении не только само удаление, но и изменение всех имен на 1 меньше.
                   //  ActionShape.number = que.size();
-                    MainWindow.number = que.size();
-                    ActionShape.name = ActionShape.type + " " + MainWindow.number;
+                 //   MainWindow.number = que.size();
+                    ActionShape.name = ActionShape.type + " " + globalNumber;
                     MainWindow.number = que.size()-1;//чтобы удалить фигуру с первого клика
                    // MainWindow.ChoiceMenu.add(ActionShape.type + " " + ActionShape.number);
                     MainWindow.ChoiceMenu.add(ActionShape.name);
+                    MainWindow.ChoiceMenu.select(que.size()-1);
                     ((Singleton)MainWindow.jPanel3).ChoiceMethod();
                     ConstructShape = que.get(que.size()-1);//Пересоздаем фигурку после синглтона
                     
@@ -244,7 +245,9 @@ public class Canvas extends JPanel implements MouseMotionListener, MouseListener
                 PickUpShape = true;
                ((Singleton)MainWindow.jPanel3).Open();//показываем кнопки
                     //ЕСЛИ РИСУЕМ ФИГУРУ _ ТО АВТОМАТОМ ВЫДЕЛЯЕМ ИМЕННО ЕЕ
+                     globalNumber++;
                 }
+               
         }
     }                               
     
@@ -320,7 +323,7 @@ public class Canvas extends JPanel implements MouseMotionListener, MouseListener
                 if (!Stoper)
                 {
                     MainWindow.number = i;//Записываем номер рассматриваемой фигуры (это номер в очереди)
-                    if (ConstructShape.Visible) que.get(i).ChoiceClick(me.getX(),me.getY());//если фигура видимая - смотрим, если нет, то не смотрим
+                    if (que.get(i).Visible) que.get(i).ChoiceClick(me.getX(),me.getY());//если фигура видимая - смотрим, если нет, то не смотрим
                     System.out.println("## "+i + " название" + ConstructShape.name);
                     MainWindow.ChoiceMenu.select(number);
                     ((Singleton)MainWindow.jPanel3).ChoiceMethod();

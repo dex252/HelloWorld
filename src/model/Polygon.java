@@ -25,6 +25,8 @@ public class Polygon extends BreakLine implements Serializable
     @Override
     public void paint(Graphics g, double scale, double x_shift, double y_shift) 
     {
+    if (Visible)
+        {
         int x1, x2, y1, y2;
         g.setColor(Color.orange);
         for (int i = 0; i<xy.size()-1;i++)
@@ -46,7 +48,8 @@ public class Polygon extends BreakLine implements Serializable
         }  
         if ((view.MainWindow.regim == 4)&&(view.Canvas.DotsWeb)) paintCheck(g);
         if ((view.Canvas.Choicer)&&(view.MainWindow.regim != 4)) ChoiceWeb(g);
-    }  
+        } 
+    }
     
     @Override
     public void Cross(Graphics g) 

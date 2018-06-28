@@ -6,6 +6,7 @@
 package controller;
 
 import model.Shape;
+import view.MainWindow;
 import static view.MainWindow.*;
 
 /**
@@ -31,10 +32,13 @@ public class Shift {
         x_move = x1 - x;
         y_move = y1 - y;
         //ActionShape.Check();
-        x_shift = x_memory - x_move;
-        y_shift = y_memory - y_move;
-        if (x_shift > 0) x_shift = 0;
-        if (y_shift > 0) y_shift = 0;
-
+        x_shift = x_memory - x_move;  
+        y_shift = y_memory - y_move; 
+        if (x_shift < 0) x_shift = 0;
+        if (y_shift < 0) y_shift = 0;
+        if (x_shift > 5000) x_shift = 5000;
+        if (y_shift > 5000) y_shift = 5000;
+        MainWindow.shiftx.setText(""+x_shift);
+        MainWindow.shifty.setText(""+y_shift);
     }
 }

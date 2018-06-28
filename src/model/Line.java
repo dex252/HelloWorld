@@ -61,18 +61,21 @@ public class Line extends Shape implements Serializable
     @Override
     public void paint(Graphics g, double scale, double x_shift, double y_shift) 
     { 
-        int x1=0,x2=0,y1=0,y2=0;
-        g.setColor(Color.red);
-        if (!xy.isEmpty())
-        {
-            x1 = (int) (xy.get(0).x/Math.exp(scale)-x_shift);
-            x2 = (int) (xy.get(1).x/Math.exp(scale)-x_shift);
-            y1 = (int) (xy.get(0).y/Math.exp(scale)-y_shift);
-            y2 = (int) (xy.get(1).y/Math.exp(scale)-y_shift);
-            g.drawLine(x1, y1, x2, y2); 
-        }
-        if ((view.MainWindow.regim == 4)&&(view.Canvas.DotsWeb)) paintCheck(g);
-        if ((view.Canvas.Choicer)&&(view.MainWindow.regim != 4)) ChoiceWeb(g);
+        if (Visible)
+            {
+            int x1=0,x2=0,y1=0,y2=0;
+            g.setColor(Color.red);
+            if (!xy.isEmpty())
+            {
+                x1 = (int) (xy.get(0).x/Math.exp(scale)-x_shift);
+                x2 = (int) (xy.get(1).x/Math.exp(scale)-x_shift);
+                y1 = (int) (xy.get(0).y/Math.exp(scale)-y_shift);
+                y2 = (int) (xy.get(1).y/Math.exp(scale)-y_shift);
+                g.drawLine(x1, y1, x2, y2); 
+            }
+            if ((view.MainWindow.regim == 4)&&(view.Canvas.DotsWeb)) paintCheck(g);
+            if ((view.Canvas.Choicer)&&(view.MainWindow.regim != 4)) ChoiceWeb(g);
+            }
     }
     
     //Отрисовка линии вовремя параллельного переноса

@@ -37,67 +37,70 @@ public class Bezier extends BreakLine implements Serializable
     @Override
     public void paint(Graphics g, double scale, double x_shift, double y_shift) 
     {
-        double x1, x2, y1, y2;
-        if (xy.size()>2) 
+    if (Visible)
         {
-            finalXY = new ArrayList();
-            for (double t = 0; t<1; t+=step)
+            double x1, x2, y1, y2;
+            if (xy.size()>2) 
             {
-                //Заполняем дополнительный массив исходным набором точек
-                for (int k = 0; k<xy.size(); k++)
+                finalXY = new ArrayList();
+                for (double t = 0; t<1; t+=step)
                 {
-                    x[k] = xy.get(k).x;
-                    y[k] = xy.get(k).y; 
-                }
-                //Сокращаем каждую итерацию исходный набор точек до одной
-                for (int k = xy.size()-1; k>0; k--)
-                {            
-                    for (int i = 0; i<k; i++)
+                    //Заполняем дополнительный массив исходным набором точек
+                    for (int k = 0; k<xy.size(); k++)
                     {
-                        x[i] = x[i]*(1-t) + x[i+1]*t;
-                        y[i] = y[i]*(1-t) + y[i+1]*t;
+                        x[k] = xy.get(k).x;
+                        y[k] = xy.get(k).y; 
                     }
+                    //Сокращаем каждую итерацию исходный набор точек до одной
+                    for (int k = xy.size()-1; k>0; k--)
+                    {            
+                        for (int i = 0; i<k; i++)
+                        {
+                            x[i] = x[i]*(1-t) + x[i+1]*t;
+                            y[i] = y[i]*(1-t) + y[i+1]*t;
+                        }
+                    }
+                    dots2 = new Dots(); 
+                    dots2.x = x[0];
+                    dots2.y = y[0];
+                    finalXY.add(dots2);
+                }  
+                //Отрисовка линий из опорных точек - закомментировано (не убирать)
+             /* for (int t = 0; t<xy.size()-1; t++)
+                {
+                    x1 = (xy.get(t).x/Math.exp(scale) - x_shift);
+                    y1 = (xy.get(t).y/Math.exp(scale) - y_shift);
+                    x2 = (xy.get(t+1).x/Math.exp(scale) - x_shift);
+                    y2 = (xy.get(t+1).y/Math.exp(scale) - y_shift);
+                    g.setColor(new Color(255, 250, 200));
+                    g.drawLine((int)x1, (int)y1, (int)x2, (int)y2);
+               }*/
+                //Отрисовка Безье
+                for (int t = 0; t<finalXY.size()-1; t++)
+                {
+                    x1 = (int) (finalXY.get(t).x/Math.exp(scale) - x_shift);
+                    x2 = (int) (finalXY.get(t+1).x/Math.exp(scale) - x_shift);
+                    y1 = (int) (finalXY.get(t).y/Math.exp(scale) - y_shift);
+                    y2 = (int) (finalXY.get(t+1).y/Math.exp(scale) - y_shift);
+                    g.setColor(Color.black);
+                    g.drawLine((int)x1, (int)y1, (int)x2, (int)y2);    
                 }
-                dots2 = new Dots(); 
-                dots2.x = x[0];
-                dots2.y = y[0];
-                finalXY.add(dots2);
-            }  
-            //Отрисовка линий из опорных точек - закомментировано (не убирать)
-         /* for (int t = 0; t<xy.size()-1; t++)
-            {
-                x1 = (xy.get(t).x/Math.exp(scale) - x_shift);
-                y1 = (xy.get(t).y/Math.exp(scale) - y_shift);
-                x2 = (xy.get(t+1).x/Math.exp(scale) - x_shift);
-                y2 = (xy.get(t+1).y/Math.exp(scale) - y_shift);
-                g.setColor(new Color(255, 250, 200));
-                g.drawLine((int)x1, (int)y1, (int)x2, (int)y2);
-           }*/
-            //Отрисовка Безье
-            for (int t = 0; t<finalXY.size()-1; t++)
-            {
-                x1 = (int) (finalXY.get(t).x/Math.exp(scale) - x_shift);
-                x2 = (int) (finalXY.get(t+1).x/Math.exp(scale) - x_shift);
-                y1 = (int) (finalXY.get(t).y/Math.exp(scale) - y_shift);
-                y2 = (int) (finalXY.get(t+1).y/Math.exp(scale) - y_shift);
-                g.setColor(Color.black);
-                g.drawLine((int)x1, (int)y1, (int)x2, (int)y2);    
             }
-        }
-        else
-        {
-            if (xy.size()==2)//рисуем если заданы две точки, возможно их и нет, если объект только-только инициализирован
+            else
             {
-                g.setColor(Color.yellow);
-                x1 = (int) (xy.get(0).x/Math.exp(scale) - x_shift);
-                x2 = (int) (xy.get(1).x/Math.exp(scale) - x_shift);
-                y1 = (int) (xy.get(0).y/Math.exp(scale) - y_shift);
-                y2 = (int) (xy.get(1).y/Math.exp(scale) - y_shift);
-                g.drawLine((int)x1, (int)y1, (int)x2, (int)y2);    
-           }
-        }  
-        if ((view.MainWindow.regim == 4)&&(view.Canvas.DotsWeb)) paintCheck(g);
-        if ((view.Canvas.Choicer)&&(view.MainWindow.regim != 4)) ChoiceWeb(g);
+                if (xy.size()==2)//рисуем если заданы две точки, возможно их и нет, если объект только-только инициализирован
+                {
+                    g.setColor(Color.yellow);
+                    x1 = (int) (xy.get(0).x/Math.exp(scale) - x_shift);
+                    x2 = (int) (xy.get(1).x/Math.exp(scale) - x_shift);
+                    y1 = (int) (xy.get(0).y/Math.exp(scale) - y_shift);
+                    y2 = (int) (xy.get(1).y/Math.exp(scale) - y_shift);
+                    g.drawLine((int)x1, (int)y1, (int)x2, (int)y2);    
+               }
+            }  
+            if ((view.MainWindow.regim == 4)&&(view.Canvas.DotsWeb)) paintCheck(g);
+            if ((view.Canvas.Choicer)&&(view.MainWindow.regim != 4)) ChoiceWeb(g);
+        }
     }
     
     //Отрисовка линии вовремя параллельного переноса

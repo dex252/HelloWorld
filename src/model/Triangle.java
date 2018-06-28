@@ -21,6 +21,8 @@ public class Triangle extends Shape implements Serializable
     @Override
     public void paint(Graphics g, double scale, double x_shift, double y_shift)
     {
+    if (Visible)
+        {
         int x1,y1,x2,y2;
         if (!xy.isEmpty())
         {
@@ -42,7 +44,9 @@ public class Triangle extends Shape implements Serializable
         }
        if ((view.MainWindow.regim == 4)&&(view.Canvas.DotsWeb)) paintCheck(g);
        if ((view.Canvas.Choicer)&&(view.MainWindow.regim != 4)) ChoiceWeb(g);
-    }  
+    
+        }  
+    }
     
     @Override
     public void FirstClick (double x1, double y1)

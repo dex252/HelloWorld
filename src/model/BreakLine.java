@@ -76,21 +76,24 @@ public class BreakLine extends Shape implements Serializable
     @Override
     public void paint(Graphics g, double scale, double x_shift, double y_shift) 
     {
-        int x1, x2, y1, y2;
-        if (!xy.isEmpty())
+    if (Visible)
         {
-            g.setColor(Color.MAGENTA);
-            for (int i = 0; i<xy.size()-1;i++)
-            {      
-                x1 = (int) (xy.get(i).x/Math.exp(scale) - x_shift);
-                x2 = (int) (xy.get(i+1).x/Math.exp(scale) - x_shift);
-                y1 = (int) (xy.get(i).y/Math.exp(scale) - y_shift);
-                y2 = (int) (xy.get(i+1).y/Math.exp(scale) - y_shift);
-                g.drawLine(x1, y1, x2, y2); 
-            }
-        }    
-        if ((view.MainWindow.regim == 4)&&(view.Canvas.DotsWeb)) paintCheck(g);
-        if ((view.Canvas.Choicer)&&(view.MainWindow.regim != 4)) ChoiceWeb(g);
+            int x1, x2, y1, y2;
+            if (!xy.isEmpty())
+            {
+                g.setColor(Color.MAGENTA);
+                for (int i = 0; i<xy.size()-1;i++)
+                {      
+                    x1 = (int) (xy.get(i).x/Math.exp(scale) - x_shift);
+                    x2 = (int) (xy.get(i+1).x/Math.exp(scale) - x_shift);
+                    y1 = (int) (xy.get(i).y/Math.exp(scale) - y_shift);
+                    y2 = (int) (xy.get(i+1).y/Math.exp(scale) - y_shift);
+                    g.drawLine(x1, y1, x2, y2); 
+                }
+            }    
+            if ((view.MainWindow.regim == 4)&&(view.Canvas.DotsWeb)) paintCheck(g);
+            if ((view.Canvas.Choicer)&&(view.MainWindow.regim != 4)) ChoiceWeb(g);
+        }
     } 
     
     @Override

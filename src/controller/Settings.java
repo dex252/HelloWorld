@@ -135,15 +135,16 @@ public class Settings extends JButton implements ActionListener
                         que.set(i, ConstructShape);
                     }*/
                     //Поторное заполнение ChoiceMenu
+                    String namer = null;
                     MainWindow.ChoiceMenu.removeAll();
                     for (int i = 0; i<que.size();i++)
                     {
                         MainWindow.number = i;
-                        ((Canvas)MainWindow.jPanel2).ActionShape = que.get(i);
-                        ((Canvas)MainWindow.jPanel2).ActionShape.name = ((Canvas)MainWindow.jPanel2).ActionShape.type + " " + (MainWindow.number+1);//имя на 1 больше истинного значения
+                        namer = que.get(i).name;
+                       // ((Canvas)MainWindow.jPanel2).ActionShape.name = ((Canvas)MainWindow.jPanel2).ActionShape.type + " " + (MainWindow.number+1);//имя на 1 больше истинного значения
                        // MainWindow.ChoiceMenu.add(ActionShape.type + " " + ActionShape.number);
                        //MainWindow.ChoiceMenu.add(ActionShape.type + " " + ((MainWindow)base).number);
-                       MainWindow.ChoiceMenu.add(((Canvas)MainWindow.jPanel2).ActionShape.name);
+                       MainWindow.ChoiceMenu.add(namer);
                     }
                     ConstructShape = null;
                     ((Canvas)MainWindow.jPanel2).ActionShape = null;

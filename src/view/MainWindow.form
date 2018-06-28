@@ -541,6 +541,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="visible">
+              <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="visibleMouseReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="name">
               <Properties>
