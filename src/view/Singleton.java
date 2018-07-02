@@ -9,6 +9,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Collections;
+import java.util.InputMismatchException;
 import javax.swing.JColorChooser;
 import javax.swing.JPanel;
 import model.Shape;
@@ -77,17 +78,53 @@ public class Singleton extends JPanel implements Propertis //Это single-то�
            //Мне нужно поместить текущую фигуру в текстовое окошко
            MainWindow.type.setText(((Canvas)MainWindow.jPanel2).ConstructShape.type);
            MainWindow.name.setText(((Canvas)MainWindow.jPanel2).ConstructShape.name);
+           MainWindow.GageBorder.setText(""+((Canvas)MainWindow.jPanel2).ConstructShape.gageBorder);
+           MainWindow.ColorBorder.setBackground(((Canvas)MainWindow.jPanel2).ConstructShape.ColorBorder);
+           MainWindow.ColorFill.setBackground(((Canvas)MainWindow.jPanel2).ConstructShape.ColorFill);
+           if (!((Canvas)MainWindow.jPanel2).ConstructShape.TypeBorder) MainWindow.TypeBorder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/punctir.png")));
+           else MainWindow.TypeBorder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/splohnaya.png")));
            if (((Canvas)MainWindow.jPanel2).ConstructShape.Visible) MainWindow.visible.setSelected(true); else MainWindow.visible.setSelected(false);
+           switch (((Canvas)MainWindow.jPanel2).ConstructShape.TypeFill)
+           {
+               case 1:
+               {
+                   MainWindow.TypeFill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/TypeF1.png")));
+                   break;
+               }
+               case 2:
+               {
+                   MainWindow.TypeFill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/TypeF2.png")));
+                   break;
+               }
+               case 3:
+               {
+                   MainWindow.TypeFill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/TypeF3.png")));
+                   break;
+               }
+               case 4:
+               {
+                   MainWindow.TypeFill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/TypeF4.png")));
+                   break;
+               }
+               case 5:
+               {
+                   MainWindow.TypeFill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/TypeF5.png")));
+                   break;
+               }
+           }
+           
            if (!((Canvas)MainWindow.jPanel2).ConstructShape.hard)
             {
-               w = ((Canvas)MainWindow.jPanel2).ConstructShape.x2 - ((Canvas)MainWindow.jPanel2).ConstructShape.x1;
+                //Зададим метод для Shape для ширины, высоты и т.д.
+             /*  w = ((Canvas)MainWindow.jPanel2).ConstructShape.x2 - ((Canvas)MainWindow.jPanel2).ConstructShape.x1;
                MainWindow.Width.setText(""+w);
                h = ((Canvas)MainWindow.jPanel2).ConstructShape.y2 - ((Canvas)MainWindow.jPanel2).ConstructShape.y1;
                MainWindow.Height.setText(""+h);
                 MainWindow.Xmin.setText(""+((Canvas)MainWindow.jPanel2).ConstructShape.x1);
                  MainWindow.Xmax.setText(""+((Canvas)MainWindow.jPanel2).ConstructShape.x2);
                   MainWindow.Ymin.setText(""+((Canvas)MainWindow.jPanel2).ConstructShape.y1);
-                   MainWindow.Ymax.setText(""+((Canvas)MainWindow.jPanel2).ConstructShape.y2);
+                   MainWindow.Ymax.setText(""+((Canvas)MainWindow.jPanel2).ConstructShape.y2); */
+                ((Canvas)MainWindow.jPanel2).ConstructShape.Setting(MainWindow);
             }
            else 
            {
@@ -155,6 +192,10 @@ public class Singleton extends JPanel implements Propertis //Это single-то�
                                    MainWindow.Ymin.setEnabled(false);
                                     MainWindow.Ymax.setEnabled(false);
                                      MainWindow.ColorBorder.setEnabled(false);
+                                       MainWindow.GageBorder.setEnabled(false);
+                                        MainWindow.TypeBorder.setEnabled(false);
+                                         MainWindow.TypeFill.setEnabled(false);
+                                          MainWindow.ColorFill.setEnabled(false);
     }
 
     public void Open() 
@@ -173,6 +214,10 @@ public class Singleton extends JPanel implements Propertis //Это single-то�
                                MainWindow.Ymin.setEnabled(true);
                                  MainWindow.Ymax.setEnabled(true);
                                   MainWindow.ColorBorder.setEnabled(true);
+                                   MainWindow.GageBorder.setEnabled(true);
+                                    MainWindow.TypeBorder.setEnabled(true);
+                                     MainWindow.TypeFill.setEnabled(true);
+                                          MainWindow.ColorFill.setEnabled(true);
     }
 
     void CheckBox() 
@@ -191,6 +236,41 @@ public class Singleton extends JPanel implements Propertis //Это single-то�
         {
             ((Canvas)MainWindow.jPanel2).ConstructShape.name = MainWindow.name.getText();
             NewChoice();
+        }
+    }
+
+    void SetBorderSize() 
+    {
+        if (((Canvas)MainWindow.jPanel2).ConstructShape != null)
+        {
+            float i = 1;
+            try 
+            {
+               try 
+               {
+                   i =  Float.parseFloat(MainWindow.GageBorder.getText());
+               }
+               catch (ClassCastException e)
+               {
+                   i = 1;
+               }
+               if (i<1) 
+               {
+                   i = 1;
+                   MainWindow.GageBorder.setText("1.0");
+               }
+               if (i>100)
+               {
+                   i = 100;
+                   MainWindow.GageBorder.setText("100.0");
+               }
+            }
+            catch (InputMismatchException e)
+            {
+               i =  ((Canvas)MainWindow.jPanel2).ConstructShape.gageBorder;
+            }
+            ((Canvas)MainWindow.jPanel2).ConstructShape.gageBorder = i;
+            ((Canvas)MainWindow.jPanel2).DrawOutside();
         }
     }
 }

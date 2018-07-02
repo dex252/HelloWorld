@@ -172,6 +172,7 @@ public class Canvas extends JPanel implements MouseMotionListener, MouseListener
                 {
                     System.out.println("Нажата запоминалка");
                     ConstructShape.Relise(); 
+                    ((Singleton)MainWindow.jPanel3).ChoiceMethod();//для обновления свойств после изменений фигуры
                     System.out.println("Запоминалка завершнена");
                   //  que.set(que.size()-1, ConstructShape); - убираем  присвоение последней игуре, ибо конфликтует с меню
                     draw(que, ConstructShape);
@@ -200,6 +201,7 @@ public class Canvas extends JPanel implements MouseMotionListener, MouseListener
                 {
                     System.out.println("Нажата запоминалка");
                     ConstructShape.Relise(); 
+                    ((Singleton)MainWindow.jPanel3).ChoiceMethod();//для обновления свойств после изменений фигуры
                     System.out.println("Запоминалка завершнена");
                    // que.set(que.size()-1, ConstructShape); 
                     draw(que, ConstructShape);

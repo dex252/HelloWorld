@@ -23,10 +23,22 @@ public class Triangle extends Shape implements Serializable
     {
     if (Visible)
         {
+        Graphics2D g2 = (Graphics2D) g; 
+        g2.setStroke(new BasicStroke(gageBorder));
         int x1,y1,x2,y2;
         if (!xy.isEmpty())
         {
-            g.setColor(Color.blue);
+         if (!TypeBorder)
+            {
+                float[] dashl = {gageBorder*2,gageBorder*2};
+                g2.setStroke(new BasicStroke(gageBorder,BasicStroke.CAP_ROUND,BasicStroke.JOIN_BEVEL,10,dashl,0));
+            }
+            else 
+            {
+                g2.setStroke(new BasicStroke(gageBorder, BasicStroke.CAP_ROUND , BasicStroke.JOIN_BEVEL));
+            }
+           // g.setColor(Color.blue);
+             g.setColor(ColorBorder);
             for (int i = 0; i<2;i++)
             {
                 x1 = (int) (xy.get(i).x/Math.exp(scale) - x_shift);
@@ -42,9 +54,9 @@ public class Triangle extends Shape implements Serializable
             y2 = (int) (xy.get(2).y/Math.exp(scale) - y_shift);
             g.drawLine(x1, y1, x2, y2); 
         }
+       g2.setStroke(new BasicStroke(1));
        if ((view.MainWindow.regim == 4)&&(view.Canvas.DotsWeb)) paintCheck(g);
        if ((view.Canvas.Choicer)&&(view.MainWindow.regim != 4)) ChoiceWeb(g);
-    
         }  
     }
     

@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import view.*;
+import static view.Canvas.DotsWeb;
 
 
 public class Instruments extends JButton implements ActionListener
@@ -56,7 +57,7 @@ public class Instruments extends JButton implements ActionListener
                     {
                      //  que.set(que.size()-1, ConstructShape); //Убрал, т.к. конфликтует с синглтоном
                        ((Canvas)MainWindow.jPanel2).draw(((Canvas)MainWindow.jPanel2).que, ((Canvas)MainWindow.jPanel2).ConstructShape);
-                       repaint();
+                      ((Canvas)MainWindow.jPanel2).repaint();
                     }
                 }
                 break;
@@ -84,14 +85,14 @@ public class Instruments extends JButton implements ActionListener
                     MainWindow.regim = 4;
                     MainWindow.typeRegim.setText ("Точки"); 
                    ((Canvas)MainWindow.jPanel2).draw(((Canvas)MainWindow.jPanel2).que, ((Canvas)MainWindow.jPanel2).ConstructShape);
-                    repaint();
+                     ((Canvas)MainWindow.jPanel2).repaint();
                 }
                 else 
                 {
                   MainWindow.regim = 0;
                   MainWindow.typeRegim.setText ("Графика"); 
                   ((Canvas)MainWindow.jPanel2).draw(((Canvas)MainWindow.jPanel2).que, ((Canvas)MainWindow.jPanel2).ConstructShape);
-                  repaint();
+                 ((Canvas)MainWindow.jPanel2).repaint();
                 }
                 break;
             }

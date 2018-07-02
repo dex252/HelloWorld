@@ -10,13 +10,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.InvalidObjectException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javax.swing.ImageIcon;
+import javax.swing.event.ChangeEvent;
 
 public class MainWindow extends javax.swing.JFrame {
     
@@ -33,6 +38,7 @@ public class MainWindow extends javax.swing.JFrame {
     static public boolean Deformat = false;
     public static int number;//Номер активной фигуры
     boolean show = true; //видимость синглтона 
+    public boolean typeColor = true; //метка о том, какая палитра будет вызвана (заливка границы или заливка фигуры)
     
     public MainWindow() 
     {
@@ -46,82 +52,326 @@ public class MainWindow extends javax.swing.JFrame {
     
     @SuppressWarnings("unchecked")
     
-        private void initComponents() {
+    private javax.swing.JButton Bezier;
+    public javax.swing.JButton ColorBorder;
+    public javax.swing.JButton ColorFill;
+    public java.awt.Label ColorShape;
+    private javax.swing.JButton Deformation;
+    private javax.swing.JButton Ellipse;
+    public javax.swing.JTextField GageBorder;
+    private javax.swing.JButton Hand;
+    public java.awt.Label Height;
+    public javax.swing.JButton HideShow;
+    private java.awt.Label Label7;
+    private javax.swing.JButton Line;
+    private javax.swing.JButton Polygon;
+    private javax.swing.JButton Polyline;
+    private javax.swing.JButton Rectangle;
+    private javax.swing.JButton Regim;
+    private javax.swing.JButton Triangle;
+    public javax.swing.JButton TypeBorder;
+    public javax.swing.JButton TypeFill;
+    public java.awt.Label Width;
+    public javax.swing.JTextField Xmax;
+    public javax.swing.JTextField Xmin;
+    public javax.swing.JTextField Ymax;
+    public javax.swing.JTextField Ymin;
+    public java.awt.Choice ChoiceMenu;
+    public javax.swing.JButton Enter;
+    public javax.swing.JButton Delete;
+    public javax.swing.JButton LevelMax;
+    public javax.swing.JButton LevelMin;
+    public javax.swing.JButton LevelUp;
+    public javax.swing.JButton LevelDown;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu fileMenu;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem NewFile;
+    private javax.swing.JMenuItem Save;
+    private javax.swing.JMenuItem SaveAs;
+    private javax.swing.JMenuItem Load;
+    private javax.swing.JMenuItem AutoLoad;
+    public javax.swing.JPanel jPanel1;
+    public javax.swing.JPanel jPanel2;
+    public javax.swing.JPanel jPanel3;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private java.awt.Label label1;
+    private java.awt.Label label10;
+    private java.awt.Label label11;
+    private java.awt.Label label12;
+    private java.awt.Label label2;
+    private java.awt.Label label3;
+    private java.awt.Label label4;
+    private java.awt.Label label5;
+    private java.awt.Label label6;
+    private java.awt.Label label7;
+    private java.awt.Label label8;
+    private java.awt.Label label9;
+    public javax.swing.JTextField name;
+    public java.awt.Label type;
+    public javax.swing.JLabel typeRegim;
+    public javax.swing.JCheckBox visible;
+    static public java.awt.Label shiftx;
+    static public java.awt.Label shifty;
+    public javax.swing.JColorChooser Colors;
+    public javax.swing.JPanel TypeLine;
+    public javax.swing.JPanel TypeSpace;
+    public javax.swing.JButton Type1;
+    public javax.swing.JButton Type2;
+    public javax.swing.JButton TypeF1;
+    public javax.swing.JButton TypeF2;
+    public javax.swing.JButton TypeF3;
+    public javax.swing.JButton TypeF4;
+    public javax.swing.JButton TypeF5;
+    
+    private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();//Панель инструментов
-        Line = new ShapeButton("Line", this);
-        Triangle = new ShapeButton("Triangle", this);
-        Ellipse = new ShapeButton("Ellipse", this);
-        Rectangle = new ShapeButton("Rectangle", this);
-        Polygon = new ShapeButton("Polygon", this);
-        Bezier = new ShapeButton("Bezier", this);
-        Polyline = new ShapeButton("BreakLine", this);
-        Regim = new Instruments("Regim", this);
-        Hand = new Instruments("Hand", this);
-        Deformation = new Instruments("Deformation", this);
-        typeRegim = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JSeparator();
-        jPanel2 = new Canvas (this);
-        jPanel3 = new Singleton(this);//Панель свойств
-        ChoiceMenu = new java.awt.Choice();
-        label1 = new java.awt.Label();
-        label2 = new java.awt.Label();
-        type = new java.awt.Label();
-        label4 = new java.awt.Label();
-        visible = new javax.swing.JCheckBox();
-        name = new javax.swing.JTextField();
-        label3 = new java.awt.Label();
-        label5 = new java.awt.Label();
-        label6 = new java.awt.Label();
-        Height = new java.awt.Label();
-        Xmin = new javax.swing.JTextField();
-        Ymin = new javax.swing.JTextField();
-        Label7 = new java.awt.Label();
-        Width = new java.awt.Label();
-        Xmax = new javax.swing.JTextField();
-        label10 = new java.awt.Label();
-        label11 = new java.awt.Label();
-        Ymax = new javax.swing.JTextField();
-        jSeparator1 = new javax.swing.JSeparator();
-        label7 = new java.awt.Label();
-        label9 = new java.awt.Label();
-        jSeparator2 = new javax.swing.JSeparator();
-        TypeBorder = new javax.swing.JButton();
-        ColorBorder = new SmileShape("ColorBorder", this);
-        GageBorder = new javax.swing.JTextField();
-        label12 = new java.awt.Label();
-        TypeFill = new javax.swing.JButton();
-        ColorShape = new java.awt.Label();
-        ColorFill = new javax.swing.JButton();
-        jSeparator3 = new javax.swing.JSeparator();
-        Enter = new Settings("Enter", this);
-        LevelMax = new Settings("Max", this);
-        LevelMin = new Settings("Min", this);
-        LevelUp = new Settings("Up", this);
-        LevelDown = new Settings("Down", this);
-        Delete = new Settings("Delete", this);
-        label8 = new java.awt.Label();
-       // Show = new Instruments("Hide", this);
-        HideShow = new Instruments("Show", this);
-        jMenuBar1 = new javax.swing.JMenuBar();
-        fileMenu = new javax.swing.JMenu();
-        NewFile = new javax.swing.JMenuItem("Создать");
-        Save= new javax.swing.JMenuItem("Сохранить");
-        SaveAs= new javax.swing.JMenuItem("Сохранить как");
-        Load= new javax.swing.JMenuItem("Открыть");
-        AutoLoad= new javax.swing.JMenuItem("Загрузить autosave");
-         shiftx = new java.awt.Label(); 
-         shifty = new java.awt.Label();
-         Colors = new javax.swing.JColorChooser();
-         
+    jPanel1 = new javax.swing.JPanel();//Панель инструментов
+    Line = new ShapeButton("Line", this);
+    Triangle = new ShapeButton("Triangle", this);
+    Ellipse = new ShapeButton("Ellipse", this);
+    Rectangle = new ShapeButton("Rectangle", this);
+    Polygon = new ShapeButton("Polygon", this);
+    Bezier = new ShapeButton("Bezier", this);
+    Polyline = new ShapeButton("BreakLine", this);
+    Regim = new Instruments("Regim", this);
+    Hand = new Instruments("Hand", this);
+    Deformation = new Instruments("Deformation", this);
+    typeRegim = new javax.swing.JLabel();
+    jLabel3 = new javax.swing.JLabel();
+    jSeparator4 = new javax.swing.JSeparator();
+    jPanel2 = new Canvas (this);
+    jPanel3 = new Singleton(this);//Панель свойств
+    ChoiceMenu = new java.awt.Choice();
+    label1 = new java.awt.Label();
+    label2 = new java.awt.Label();
+    type = new java.awt.Label();
+    label4 = new java.awt.Label();
+    visible = new javax.swing.JCheckBox();
+    name = new javax.swing.JTextField();
+    label3 = new java.awt.Label();
+    label5 = new java.awt.Label();
+    label6 = new java.awt.Label();
+    Height = new java.awt.Label();
+    Xmin = new javax.swing.JTextField();
+    Ymin = new javax.swing.JTextField();
+    Label7 = new java.awt.Label();
+    Width = new java.awt.Label();
+    Xmax = new javax.swing.JTextField();
+    label10 = new java.awt.Label();
+    label11 = new java.awt.Label();
+    Ymax = new javax.swing.JTextField();
+    jSeparator1 = new javax.swing.JSeparator();
+    label7 = new java.awt.Label();
+    label9 = new java.awt.Label();
+    jSeparator2 = new javax.swing.JSeparator();
+    TypeBorder = new SmileShape("TypeBorder", this);
+    ColorBorder = new SmileShape("ColorBorder", this);
+    GageBorder = new javax.swing.JTextField();
+    label12 = new java.awt.Label();
+    TypeFill = new SmileShape("TypeFill", this);
+    ColorShape = new java.awt.Label();
+    ColorFill = new SmileShape("ColorFill", this);
+    jSeparator3 = new javax.swing.JSeparator();
+    Enter = new Settings("Enter", this);
+    LevelMax = new Settings("Max", this);
+    LevelMin = new Settings("Min", this);
+    LevelUp = new Settings("Up", this);
+    LevelDown = new Settings("Down", this);
+    Delete = new Settings("Delete", this);
+    label8 = new java.awt.Label();
+    HideShow = new Instruments("Show", this);
+    jMenuBar1 = new javax.swing.JMenuBar();
+    fileMenu = new javax.swing.JMenu();
+    NewFile = new javax.swing.JMenuItem("Создать");
+    Save= new javax.swing.JMenuItem("Сохранить");
+    SaveAs= new javax.swing.JMenuItem("Сохранить как");
+    Load= new javax.swing.JMenuItem("Открыть");
+    AutoLoad= new javax.swing.JMenuItem("Загрузить autosave");
+    shiftx = new java.awt.Label(); 
+    shifty = new java.awt.Label();
+    TypeLine = new javax.swing.JPanel();
+    TypeSpace = new javax.swing.JPanel();
+    Colors = new javax.swing.JColorChooser();
+    Type1 = new javax.swing.JButton();
+    Type2 = new javax.swing.JButton();
+    TypeF1 = new javax.swing.JButton();
+    TypeF2 = new javax.swing.JButton();
+    TypeF3 = new javax.swing.JButton();
+    TypeF4 = new javax.swing.JButton();
+    TypeF5 = new javax.swing.JButton();
+     
+    TypeSpace.setSize(60, 160);
+    TypeSpace.setLocation(87,360);
+    TypeSpace.setBackground(Color.gray);
+    TypeSpace.setVisible(false);
+    jPanel3.add(TypeSpace);
+   
+    TypeF1.setSize(36,40);
+    TypeF1.setLocation(0,0);
+    TypeF1.setIcon (new javax.swing.ImageIcon(getClass().getResource("/resources/TypeF1.png")));
+    TypeSpace.add(TypeF1);
+    TypeF1.addActionListener(new ActionListener (){
+        public void actionPerformed(ActionEvent e)
+            {
+              TypeSpace.setVisible(false);
+              ((SmileShape)TypeFill).hide = false;
+              if ( ((Canvas)jPanel2).ConstructShape != null)
+                {
+                    ((Canvas)jPanel2).ConstructShape.TypeFill = 1;
+                     TypeFill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/TypeF1.png")));
+                }
+              ((Canvas)jPanel2).DrawOutside();
+            }
+        });
+    TypeF2.setSize(36,40);
+    TypeF2.setLocation(0,0);
+    TypeF2.setIcon (new javax.swing.ImageIcon(getClass().getResource("/resources/TypeF2.png")));
+    TypeSpace.add(TypeF2);
+    TypeF2.addActionListener(new ActionListener (){
+        public void actionPerformed(ActionEvent e)
+            {
+              TypeSpace.setVisible(false);
+              ((SmileShape)TypeFill).hide = false;
+              if ( ((Canvas)jPanel2).ConstructShape != null)
+                {
+                    ((Canvas)jPanel2).ConstructShape.TypeFill = 2;
+                     TypeFill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/TypeF2.png")));
+                }
+              ((Canvas)jPanel2).DrawOutside();
+            }
+        });
+    TypeF3.setSize(36,40);
+    TypeF3.setLocation(0,0);
+    TypeF3.setIcon (new javax.swing.ImageIcon(getClass().getResource("/resources/TypeF3.png")));
+    TypeSpace.add(TypeF3);
+    TypeF3.addActionListener(new ActionListener (){
+        public void actionPerformed(ActionEvent e)
+            {
+              TypeSpace.setVisible(false);
+              ((SmileShape)TypeFill).hide = false;
+              if ( ((Canvas)jPanel2).ConstructShape != null)
+                {
+                    ((Canvas)jPanel2).ConstructShape.TypeFill = 3;
+                     TypeFill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/TypeF3.png")));
+                }
+              ((Canvas)jPanel2).DrawOutside();
+            }
+        });
+    TypeF4.setSize(36,40);
+    TypeF4.setLocation(0,0);
+    TypeF4.setIcon (new javax.swing.ImageIcon(getClass().getResource("/resources/TypeF4.png")));
+    TypeSpace.add(TypeF4);
+    TypeF4.addActionListener(new ActionListener (){
+        public void actionPerformed(ActionEvent e)
+            {
+              TypeSpace.setVisible(false);
+              ((SmileShape)TypeFill).hide = false;
+              if ( ((Canvas)jPanel2).ConstructShape != null)
+                {
+                    ((Canvas)jPanel2).ConstructShape.TypeFill = 4;
+                     TypeFill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/TypeF4.png")));
+                }
+              ((Canvas)jPanel2).DrawOutside();
+            }
+        });
+    TypeF5.setSize(36,40);
+    TypeF5.setLocation(0,0);
+    TypeF5.setIcon (new javax.swing.ImageIcon(getClass().getResource("/resources/TypeF5.png")));
+    TypeSpace.add(TypeF5);
+    TypeF5.addActionListener(new ActionListener (){
+        public void actionPerformed(ActionEvent e)
+            {
+              TypeSpace.setVisible(false);
+              ((SmileShape)TypeFill).hide = false;
+              if ( ((Canvas)jPanel2).ConstructShape != null)
+                {
+                    ((Canvas)jPanel2).ConstructShape.TypeFill = 5;
+                     TypeFill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/TypeF5.png")));
+                }
+              ((Canvas)jPanel2).DrawOutside();
+            }
+        });
+    
+    
+    TypeLine.setSize(85, 70);
+    TypeLine.setLocation(115,220);
+    TypeLine.setBackground(Color.gray);
+    TypeLine.setVisible(false);
+    jPanel3.add(TypeLine);
+    
+    Type1.setSize(36,40);
+    Type1.setLocation(0,0);
+    Type1.setText("Сплошная");
+    TypeLine.add(Type1);
+    Type1.addActionListener(new ActionListener (){
+        public void actionPerformed(ActionEvent e)
+            {
+              TypeLine.setVisible(false);
+              ((SmileShape)TypeBorder).hide = false;
+              if ( ((Canvas)jPanel2).ConstructShape != null)
+                {
+                    ((Canvas)jPanel2).ConstructShape.TypeBorder = true;
+                     TypeBorder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/splohnaya.png")));
+                }
+              ((Canvas)jPanel2).DrawOutside();
+            }
+        });
+    
+    Type2.setSize(36,40);
+    Type2.setLocation(0,40);
+    Type2.setText("Пунктир");
+    TypeLine.add(Type2);
+    Type2.addActionListener(new ActionListener (){
+        public void actionPerformed(ActionEvent e)
+            {
+               TypeLine.setVisible(false);
+               ((SmileShape)TypeBorder).hide = false;
+               if ( ((Canvas)jPanel2).ConstructShape != null)
+                {
+                    ((Canvas)jPanel2).ConstructShape.TypeBorder = false;
+                     TypeBorder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/punctir.png")));
+                }
+               ((Canvas)jPanel2).DrawOutside();
+            }
+        });
         
       this.add(Colors);
-      Colors.setLocation(525, 340);
+      Colors.setLocation(521, 340);
       Colors.setSize(420, 240);
       Colors.setVisible(false);
-      
+      Colors.setPreviewPanel(new javax.swing.JPanel());
          
+      Colors.getSelectionModel().addChangeListener(new javax.swing.event.ChangeListener() 
+        {
+            @Override
+            public void stateChanged(ChangeEvent ce)
+            {
+                if (((Canvas)jPanel2).ConstructShape != null)
+                {
+                    if (typeColor)
+                    {
+                    ((Canvas)jPanel2).ConstructShape.ColorBorder = Colors.getColor();
+                    ColorBorder.setBackground(Colors.getColor());
+                    }
+                    else
+                    {
+                    ((Canvas)jPanel2).ConstructShape.ColorFill = Colors.getColor();
+                    ColorFill.setBackground(Colors.getColor());
+                    }
+                  
+                    Colors.setVisible(false);
+                    ((SmileShape)ColorBorder).hide = false;
+                    ((SmileShape)ColorFill).hide = false;
+                    ((Canvas)jPanel2).DrawOutside();
+                }  
+            }
+        }
+        );
+      
         Xmax.setEditable(false);
            Xmin.setEditable(false);
               Ymax.setEditable(false);
@@ -165,6 +415,18 @@ public class MainWindow extends javax.swing.JFrame {
                if (key == KeyEvent.VK_ENTER)
                { 
                    ((Singleton)jPanel3).SetName();
+               }
+          }
+      });
+      
+       GageBorder.addKeyListener(new java.awt.event.KeyAdapter()
+      {
+          public void keyPressed(KeyEvent e)
+          {
+              int key = e.getKeyCode();
+               if (key == KeyEvent.VK_ENTER)
+               { 
+                   ((Singleton)jPanel3).SetBorderSize();
                }
           }
       });
@@ -288,6 +550,8 @@ public class MainWindow extends javax.swing.JFrame {
         Enter.setEnabled(false);
         visible.setEnabled(false);
         ColorBorder.setEnabled(false);
+        TypeBorder.setEnabled(false);
+        GageBorder.setEnabled(false);
        
         
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -385,19 +649,22 @@ public class MainWindow extends javax.swing.JFrame {
 
         label9.setText("Цвет границы:");
 
-        TypeBorder.setText(" ");
+        //TypeBorder.setText(" ");
+         TypeBorder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/splohnaya.png")));
 
         ColorBorder.setText(" ");
 
-        GageBorder.setText("000");
-
         label12.setText("Тип заливки:");
+        
+        GageBorder.setSize(80, 20);
 
-        TypeFill.setText(" ");
+        TypeFill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/TypeF1.png")));
+        TypeFill.setEnabled(false);
 
         ColorShape.setText("Цвет заливки:");
 
         ColorFill.setText(" ");
+        ColorFill.setEnabled(false);
 
         Enter.setText("Применить");
 
@@ -1235,70 +1502,5 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JCheckBox visible;
     // End of variables declaration//GEN-END:variables
  */
-    private javax.swing.JButton Bezier;
-    public javax.swing.JButton ColorBorder;
-    public javax.swing.JButton ColorFill;
-    public java.awt.Label ColorShape;
-    private javax.swing.JButton Deformation;
-    private javax.swing.JButton Ellipse;
-    public javax.swing.JTextField GageBorder;
-    private javax.swing.JButton Hand;
-    public java.awt.Label Height;
-    public javax.swing.JButton HideShow;
-   // public javax.swing.JButton Show;
-    private java.awt.Label Label7;
-    private javax.swing.JButton Line;
-    private javax.swing.JButton Polygon;
-    private javax.swing.JButton Polyline;
-    private javax.swing.JButton Rectangle;
-    private javax.swing.JButton Regim;
-    private javax.swing.JButton Triangle;
-    private javax.swing.JButton TypeBorder;
-    private javax.swing.JButton TypeFill;
-    public java.awt.Label Width;
-    public javax.swing.JTextField Xmax;
-    public javax.swing.JTextField Xmin;
-    public javax.swing.JTextField Ymax;
-    public javax.swing.JTextField Ymin;
-    public java.awt.Choice ChoiceMenu;
-    public javax.swing.JButton Enter;
-    public javax.swing.JButton Delete;
-    public javax.swing.JButton LevelMax;
-    public javax.swing.JButton LevelMin;
-    public javax.swing.JButton LevelUp;
-    public javax.swing.JButton LevelDown;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu fileMenu;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem NewFile;
-    private javax.swing.JMenuItem Save;
-    private javax.swing.JMenuItem SaveAs;
-    private javax.swing.JMenuItem Load;
-    private javax.swing.JMenuItem AutoLoad;
-    public javax.swing.JPanel jPanel1;
-    public javax.swing.JPanel jPanel2;
-    public javax.swing.JPanel jPanel3;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private java.awt.Label label1;
-    private java.awt.Label label10;
-    private java.awt.Label label11;
-    private java.awt.Label label12;
-    private java.awt.Label label2;
-    private java.awt.Label label3;
-    private java.awt.Label label4;
-    private java.awt.Label label5;
-    private java.awt.Label label6;
-    private java.awt.Label label7;
-    private java.awt.Label label8;
-    private java.awt.Label label9;
-    public javax.swing.JTextField name;
-    public java.awt.Label type;
-    public javax.swing.JLabel typeRegim;
-    public javax.swing.JCheckBox visible;
-    static public java.awt.Label shiftx;
-    static public java.awt.Label shifty;
-    public javax.swing.JColorChooser Colors;
+    
 }

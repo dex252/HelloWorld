@@ -4,6 +4,7 @@ package model;
 import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import view.MainWindow;
 import static view.MainWindow.*;
 
 
@@ -23,12 +24,45 @@ abstract public class Shape implements Serializable
     byte location1; //локация для внутренних точек
     public String name = null;
     public boolean Visible = true;
+    public Color ColorBorder;
+    public float gageBorder = 1;
+    public boolean TypeBorder;
+    public Color ColorFill;
+    public int TypeFill;
     
     public Shape ()
     {
         this.type = "Shape";
         this.hard = false;
         this.name = type;
+        this.TypeBorder = true;
+        this.ColorBorder = java.awt.Color.black;
+        this.TypeFill = 1;
+       // this.ColorFill = new Color(255, 255, 255, 0);//прозрачный
+    }
+  
+    public void Setting(MainWindow base)
+    {
+        double xmax, xmin, ymax, ymin, w, h;
+        xmax = xy.get(0).x;
+        xmin = xy.get(0).x;
+        ymax = xy.get(0).y;
+        ymin = xy.get(0).y;
+        for (int i = 0; i < xy.size(); i++)
+        {
+            if (xmax < xy.get(i).x) xmax = xy.get(i).x;
+            if (xmin > xy.get(i).x) xmin = xy.get(i).x;
+            if (ymax < xy.get(i).y) ymax = xy.get(i).y;
+            if (ymin > xy.get(i).y) ymin = xy.get(i).y;
+        }
+        w = xmax - xmin;
+        h = ymax - ymin;
+        base.Xmin.setText (""+ xmin);
+        base.Xmax.setText (""+ xmax);
+        base.Ymin.setText (""+ ymin);
+        base.Ymax.setText (""+ ymax);
+        base.Width.setText (""+ w);
+        base.Height.setText (""+ h);
     }
     
     public void Click (double x1, double y1)

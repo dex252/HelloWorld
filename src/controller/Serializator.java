@@ -8,9 +8,9 @@ import java.util.logging.Logger;
 
 public class Serializator 
 {
-    public void serialization(Queue que, String name)
+    public void serialization(Queue que, String name)//Queue - очередь объектов, name - имя файла, куда сохраняем
     {
-        File file = new File ("D:/Projects/HelloWorld/saves/" + name + ".qqw");
+        File file = new File ("D:/Projects/HelloWorld/saves/" + name + ".qqw");//путь сохранения
         ObjectOutputStream oos = null;
         try 
         {
@@ -45,9 +45,9 @@ public class Serializator
         }
     } 
     
-    public Queue deserialization (String name) throws InvalidObjectException
+    public Queue deserialization (String name) throws InvalidObjectException //name - имя считываемого файла
     {
-        File file = new File ("D:/Projects/HelloWorld/saves/" + name + ".qqw");
+        File file = new File ("D:/Projects/HelloWorld/saves/" + name + ".qqw");//путь откуда считываем
         ObjectInputStream ois = null;
         try {
             FileInputStream fis = new FileInputStream(file);

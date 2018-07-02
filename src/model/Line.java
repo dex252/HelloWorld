@@ -28,7 +28,7 @@ public class Line extends Shape implements Serializable
             dots.y = (y1+y_shift)*Math.exp(scale);
             xy.add(dots);
             xy.add(dots);
-            this.x1 = (x1+x_shift)*Math.exp(scale);//ДОБАВИЛ, НЕ ХВАТАЛО???
+            this.x1 = (x1+x_shift)*Math.exp(scale);//ДОБАВИЛ
             this.y1 = (y1+y_shift)*Math.exp(scale);
         }
         else 
@@ -63,8 +63,18 @@ public class Line extends Shape implements Serializable
     { 
         if (Visible)
             {
+            Graphics2D g2 = (Graphics2D) g; 
+            if (!TypeBorder)
+            {
+                float[] dashl = {gageBorder*2,gageBorder*2};
+                g2.setStroke(new BasicStroke(gageBorder,BasicStroke.CAP_ROUND,BasicStroke.JOIN_BEVEL,10,dashl,0));
+            }
+            else 
+            {
+                g2.setStroke(new BasicStroke(gageBorder, BasicStroke.CAP_ROUND , BasicStroke.JOIN_BEVEL));
+            }
             int x1=0,x2=0,y1=0,y2=0;
-            g.setColor(Color.red);
+            g.setColor(ColorBorder);
             if (!xy.isEmpty())
             {
                 x1 = (int) (xy.get(0).x/Math.exp(scale)-x_shift);
@@ -73,6 +83,7 @@ public class Line extends Shape implements Serializable
                 y2 = (int) (xy.get(1).y/Math.exp(scale)-y_shift);
                 g.drawLine(x1, y1, x2, y2); 
             }
+            g2.setStroke(new BasicStroke(1));
             if ((view.MainWindow.regim == 4)&&(view.Canvas.DotsWeb)) paintCheck(g);
             if ((view.Canvas.Choicer)&&(view.MainWindow.regim != 4)) ChoiceWeb(g);
             }

@@ -5,8 +5,10 @@
  */
 package model;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 import static view.MainWindow.*;
@@ -39,6 +41,8 @@ public class Bezier extends BreakLine implements Serializable
     {
     if (Visible)
         {
+            Graphics2D g2 = (Graphics2D) g; 
+            g2.setStroke(new BasicStroke(gageBorder));
             double x1, x2, y1, y2;
             if (xy.size()>2) 
             {
@@ -76,15 +80,41 @@ public class Bezier extends BreakLine implements Serializable
                     g.drawLine((int)x1, (int)y1, (int)x2, (int)y2);
                }*/
                 //Отрисовка Безье
+            if (!TypeBorder)
+            {
                 for (int t = 0; t<finalXY.size()-1; t++)
                 {
                     x1 = (int) (finalXY.get(t).x/Math.exp(scale) - x_shift);
                     x2 = (int) (finalXY.get(t+1).x/Math.exp(scale) - x_shift);
                     y1 = (int) (finalXY.get(t).y/Math.exp(scale) - y_shift);
                     y2 = (int) (finalXY.get(t+1).y/Math.exp(scale) - y_shift);
-                    g.setColor(Color.black);
+                    g.setColor(ColorBorder);
+                    g.drawLine((int)x1, (int)y1, (int)x2, (int)y2);    
+                    t +=gageBorder/2;
+                }
+            }
+            else 
+            {
+                g2.setStroke(new BasicStroke(gageBorder, BasicStroke.CAP_ROUND , BasicStroke.JOIN_BEVEL));
+                for (int t = 0; t<finalXY.size()-1; t++)
+                {
+                    x1 = (int) (finalXY.get(t).x/Math.exp(scale) - x_shift);
+                    x2 = (int) (finalXY.get(t+1).x/Math.exp(scale) - x_shift);
+                    y1 = (int) (finalXY.get(t).y/Math.exp(scale) - y_shift);
+                    y2 = (int) (finalXY.get(t+1).y/Math.exp(scale) - y_shift);
+                    g.setColor(ColorBorder);
                     g.drawLine((int)x1, (int)y1, (int)x2, (int)y2);    
                 }
+            }
+            /*    for (int t = 0; t<finalXY.size()-1; t++)
+                {
+                    x1 = (int) (finalXY.get(t).x/Math.exp(scale) - x_shift);
+                    x2 = (int) (finalXY.get(t+1).x/Math.exp(scale) - x_shift);
+                    y1 = (int) (finalXY.get(t).y/Math.exp(scale) - y_shift);
+                    y2 = (int) (finalXY.get(t+1).y/Math.exp(scale) - y_shift);
+                    g.setColor(ColorBorder);
+                    g.drawLine((int)x1, (int)y1, (int)x2, (int)y2);    
+                }*/
             }
             else
             {
@@ -98,6 +128,8 @@ public class Bezier extends BreakLine implements Serializable
                     g.drawLine((int)x1, (int)y1, (int)x2, (int)y2);    
                }
             }  
+            g.setColor(ColorBorder);
+            g2.setStroke(new BasicStroke(1));
             if ((view.MainWindow.regim == 4)&&(view.Canvas.DotsWeb)) paintCheck(g);
             if ((view.Canvas.Choicer)&&(view.MainWindow.regim != 4)) ChoiceWeb(g);
         }

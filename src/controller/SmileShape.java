@@ -19,7 +19,7 @@ public class SmileShape extends JButton implements ActionListener
 {
     MainWindow MainWindow;
     String action;
-    boolean hide = false;
+    public boolean hide = false;
     public SmileShape(String action, MainWindow main) 
     {
        this.action = action;
@@ -42,6 +42,53 @@ public class SmileShape extends JButton implements ActionListener
                 else 
                 {
                     MainWindow.Colors.setVisible(true);
+                    MainWindow.typeColor = true;
+                    hide = true;
+                }
+                
+                break;
+            }
+            case "TypeBorder":
+            {
+                if (hide) 
+                {
+                    MainWindow.TypeLine.setVisible(false);
+                    hide = false;
+                }
+                else 
+                {
+                    MainWindow.TypeLine.setVisible(true);
+                    hide = true;
+                }
+                
+                break;
+            }
+               case "ColorFill":
+            {
+               if (hide) 
+                {
+                    MainWindow.Colors.setVisible(false);
+                    hide = false;
+                }
+                else 
+                {
+                    MainWindow.Colors.setVisible(true);
+                    MainWindow.typeColor = false;
+                    hide = true;
+                }
+                
+                break;
+            }
+            case "TypeFill":
+            {
+                if (hide) 
+                {
+                    MainWindow.TypeSpace.setVisible(false);
+                    hide = false;
+                }
+                else 
+                {
+                    MainWindow.TypeSpace.setVisible(true);
                     hide = true;
                 }
                 

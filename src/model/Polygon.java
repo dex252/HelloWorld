@@ -1,8 +1,10 @@
 
 package model;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.io.Serializable;
 import static view.MainWindow.*;
 
@@ -27,8 +29,19 @@ public class Polygon extends BreakLine implements Serializable
     {
     if (Visible)
         {
+        Graphics2D g2 = (Graphics2D) g; 
+        if (!TypeBorder)
+            {
+                float[] dashl = {gageBorder*2,gageBorder*2};
+                g2.setStroke(new BasicStroke(gageBorder,BasicStroke.CAP_ROUND,BasicStroke.JOIN_BEVEL,10,dashl,0));
+            }
+            else 
+            {
+                g2.setStroke(new BasicStroke(gageBorder, BasicStroke.CAP_ROUND , BasicStroke.JOIN_BEVEL));
+            }
         int x1, x2, y1, y2;
-        g.setColor(Color.orange);
+        g.setColor(ColorBorder);
+       // g.setColor(Color.orange);
         for (int i = 0; i<xy.size()-1;i++)
         {      
             x1 = (int) (xy.get(i).x/Math.exp(scale) - x_shift) ;
@@ -46,6 +59,7 @@ public class Polygon extends BreakLine implements Serializable
             y2 = (int) (xy.get(xy.size()-1).y/Math.exp(scale) - y_shift) ;
             g.drawLine(x1, y1, x2, y2); 
         }  
+        g2.setStroke(new BasicStroke(1));
         if ((view.MainWindow.regim == 4)&&(view.Canvas.DotsWeb)) paintCheck(g);
         if ((view.Canvas.Choicer)&&(view.MainWindow.regim != 4)) ChoiceWeb(g);
         } 

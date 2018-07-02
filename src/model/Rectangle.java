@@ -175,9 +175,20 @@ public class Rectangle extends Shape implements Serializable
     {   
      if (Visible)
         {
+        Graphics2D g2 = (Graphics2D) g; 
+         if (!TypeBorder)
+            {
+                float[] dashl = {gageBorder*2,gageBorder*2};
+                g2.setStroke(new BasicStroke(gageBorder,BasicStroke.CAP_ROUND,BasicStroke.JOIN_BEVEL,10,dashl,0));
+            }
+            else 
+            {
+                g2.setStroke(new BasicStroke(gageBorder, BasicStroke.CAP_ROUND , BasicStroke.JOIN_BEVEL));
+            }
         if (!xy.isEmpty())
         {
-            g.setColor(Color.green);
+           // g.setColor(Color.green);
+             g.setColor(ColorBorder);
             int x1,y1,x2,y2;
             for (int i = 0; i<3;i++)
             {
@@ -194,6 +205,7 @@ public class Rectangle extends Shape implements Serializable
             y2 = (int) (xy.get(3).y/Math.exp(scale) - y_shift) ;
             g.drawLine(x1, y1, x2, y2);  
         }
+        g2.setStroke(new BasicStroke(1));
         if ((view.MainWindow.regim == 4)&&(view.Canvas.DotsWeb)) paintCheck(g);
         if ((view.Canvas.Choicer)&&(view.MainWindow.regim != 4)) ChoiceWeb(g);
         }    

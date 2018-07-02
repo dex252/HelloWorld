@@ -4,6 +4,7 @@ package model;
 import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import view.MainWindow;
 import static view.MainWindow.*;
 
 public class Ellipse extends Shape implements Serializable
@@ -51,6 +52,7 @@ public class Ellipse extends Shape implements Serializable
         }
         else
         {
+         if ((x1==0)&&(x2==0)) x1 = 1;
           x0 = x2+(x1-x2)/2;
           a = (x1 - x2)/2;
         }
@@ -61,6 +63,7 @@ public class Ellipse extends Shape implements Serializable
         }
         else
         {
+          if ((y1==0)&&(y2==0)) y1 = 1;
           y0 = y2+(y1-y2)/2;
           b = (y1 - y2)/2;
         }
@@ -71,6 +74,8 @@ public class Ellipse extends Shape implements Serializable
     {
     if (Visible)
         {
+        Graphics2D g2 = (Graphics2D) g; 
+        g2.setStroke(new BasicStroke(gageBorder));
         ac = (int) (a/Math.exp(scale));
         bc = (int) (b/Math.exp(scale));
         x0c = (int) (x0/Math.exp(scale)-x_shift);
@@ -207,7 +212,23 @@ public class Ellipse extends Shape implements Serializable
 */
             if (!xy.isEmpty())
             {
-                g.setColor(Color.black);
+                g.setColor(ColorBorder);
+            if (!TypeBorder)
+            {
+                for (int i = 0; i < xy.size()-4; i++) 
+                {
+                    int x1, y1, x2, y2;
+                    x1 = (int) xy.get(i).x ;    
+                    y1 = (int) xy.get(i).y ; 
+                    x2 = (int) xy.get(i+4).x ;    
+                    y2 = (int) xy.get(i+4).y ; 
+                    g.drawLine ((int) x1, (int) y1, (int) x2, (int) y2);
+                    i += gageBorder*4;
+                }
+            }
+            else 
+            {
+                g2.setStroke(new BasicStroke(gageBorder, BasicStroke.CAP_ROUND , BasicStroke.JOIN_BEVEL));
                 for (int i = 0; i < xy.size()-4; i++) 
                 {
                     int x1, y1, x2, y2;
@@ -217,9 +238,10 @@ public class Ellipse extends Shape implements Serializable
                     y2 = (int) xy.get(i+4).y ; 
                     g.drawLine ((int) x1, (int) y1, (int) x2, (int) y2);
                 }
+            } 
             }
         }
-
+        g2.setStroke(new BasicStroke(1));
         Check();
         if ((view.MainWindow.regim == 4)&&(view.Canvas.DotsWeb)) paintCheck(g);
         if ((view.Canvas.Choicer)&&(view.MainWindow.regim != 4)) ChoiceWeb(g);
@@ -871,5 +893,30 @@ public class Ellipse extends Shape implements Serializable
                 x2 = (int) (obs.get(35).x);
                 y2 = (int) (obs.get(35).y) ;
                 g.drawLine(x1, y1, x2, y2);
+    }
+    
+    @Override
+    public void Setting(MainWindow base)
+    {
+        double xmax, xmin, ymax, ymin, w, h;
+        xmax = xy.get(0).x;
+        xmin = xy.get(0).x;
+        ymax = xy.get(0).y;
+        ymin = xy.get(0).y;
+        for (int i = 0; i < xy.size(); i++)
+        {
+            if (xmax < xy.get(i).x) xmax = xy.get(i).x;
+            if (xmin > xy.get(i).x) xmin = xy.get(i).x;
+            if (ymax < xy.get(i).y) ymax = xy.get(i).y;
+            if (ymin > xy.get(i).y) ymin = xy.get(i).y;
+        }
+        w = a*2;
+        h = b*2;
+        base.Xmin.setText (""+ xmin);
+        base.Xmax.setText (""+ xmax);
+        base.Ymin.setText (""+ ymin);
+        base.Ymax.setText (""+ ymax);
+        base.Width.setText (""+ w);
+        base.Height.setText (""+ h);
     }
 }
