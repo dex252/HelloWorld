@@ -18,6 +18,7 @@ public class AutoSave extends Thread
                 System.out.println("Автосохранение....");
             }
         });
+    
     MainWindow base;
     public AutoSave (MainWindow main)
     {

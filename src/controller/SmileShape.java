@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -95,6 +96,16 @@ public class SmileShape extends JButton implements ActionListener
                 break;
             }
         }
+    }
+    
+     @Override
+    protected void paintBorder(Graphics g)
+    {
+         g.setColor(getForeground());
+         g.drawLine(3, 3, 36, 3);
+         g.drawLine(3, 25, 36, 25);
+         g.drawLine(3, 3, 3, 25);
+         g.drawLine(36, 3, 36, 25);
     }
 }
 

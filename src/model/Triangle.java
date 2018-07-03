@@ -23,11 +23,27 @@ public class Triangle extends Shape implements Serializable
     {
     if (Visible)
         {
-        Graphics2D g2 = (Graphics2D) g; 
-        g2.setStroke(new BasicStroke(gageBorder));
+         Graphics2D g2 = (Graphics2D) g; 
         int x1,y1,x2,y2;
         if (!xy.isEmpty())
         {
+            //заливка
+            xy2.clear();
+            Dots dots = new Dots();
+            for (int i = 0; i<xy.size();i++)
+            {
+                x1 = (int) (xy.get(i).x/Math.exp(scale) - x_shift) ;
+                y1 = (int) (xy.get(i).y/Math.exp(scale) - y_shift) ;
+                dots.x = x1;
+                dots.y = y1;
+                xy2.add(dots);
+                dots = new Dots();
+            }
+            FillShape fill = new FillShape(TypeFill, ColorFill, xy2, name);
+            fill.FillShape(g);
+            xy2.clear();
+      
+        g2.setStroke(new BasicStroke(gageBorder));
          if (!TypeBorder)
             {
                 float[] dashl = {gageBorder*2,gageBorder*2};
@@ -372,4 +388,5 @@ public class Triangle extends Shape implements Serializable
         }
        return dots;
     }  
+    
 }

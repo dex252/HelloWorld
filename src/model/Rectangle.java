@@ -4,6 +4,7 @@ import static view.MainWindow.*;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Rectangle extends Shape implements Serializable
 {   
@@ -176,7 +177,25 @@ public class Rectangle extends Shape implements Serializable
      if (Visible)
         {
         Graphics2D g2 = (Graphics2D) g; 
-         if (!TypeBorder)
+        if (!xy.isEmpty())
+        {
+            //заливка
+            xy2.clear();
+            Dots dots = new Dots();
+            int x1,y1,x2,y2;
+            for (int i = 0; i<xy.size();i++)
+            {
+                x1 = (int) (xy.get(i).x/Math.exp(scale) - x_shift) ;
+                y1 = (int) (xy.get(i).y/Math.exp(scale) - y_shift) ;
+                dots.x = x1;
+                dots.y = y1;
+                xy2.add(dots);
+                dots = new Dots();
+            }
+            FillShape fill = new FillShape(TypeFill, ColorFill, xy2, name);
+            fill.FillShape(g);
+            xy2.clear();
+            if (!TypeBorder)
             {
                 float[] dashl = {gageBorder*2,gageBorder*2};
                 g2.setStroke(new BasicStroke(gageBorder,BasicStroke.CAP_ROUND,BasicStroke.JOIN_BEVEL,10,dashl,0));
@@ -185,11 +204,8 @@ public class Rectangle extends Shape implements Serializable
             {
                 g2.setStroke(new BasicStroke(gageBorder, BasicStroke.CAP_ROUND , BasicStroke.JOIN_BEVEL));
             }
-        if (!xy.isEmpty())
-        {
            // g.setColor(Color.green);
              g.setColor(ColorBorder);
-            int x1,y1,x2,y2;
             for (int i = 0; i<3;i++)
             {
                 x1 = (int) (xy.get(i).x/Math.exp(scale) - x_shift) ;
@@ -210,4 +226,5 @@ public class Rectangle extends Shape implements Serializable
         if ((view.Canvas.Choicer)&&(view.MainWindow.regim != 4)) ChoiceWeb(g);
         }    
     }
+    
 }

@@ -38,9 +38,10 @@ abstract public class Shape implements Serializable
         this.TypeBorder = true;
         this.ColorBorder = java.awt.Color.black;
         this.TypeFill = 1;
-       // this.ColorFill = new Color(255, 255, 255, 0);//прозрачный
+        this.ColorFill = new Color(255, 255, 255, 0);//прозрачный
+      // this.ColorFill = java.awt.Color.red;
     }
-  
+
     public void Setting(MainWindow base)
     {
         double xmax, xmin, ymax, ymin, w, h;
@@ -751,4 +752,5 @@ abstract public class Shape implements Serializable
             g.drawLine(x1, y1, x2, y2);
         }
     }
+
 }

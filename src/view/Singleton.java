@@ -81,6 +81,7 @@ public class Singleton extends JPanel implements Propertis //Это single-то�
            MainWindow.GageBorder.setText(""+((Canvas)MainWindow.jPanel2).ConstructShape.gageBorder);
            MainWindow.ColorBorder.setBackground(((Canvas)MainWindow.jPanel2).ConstructShape.ColorBorder);
            MainWindow.ColorFill.setBackground(((Canvas)MainWindow.jPanel2).ConstructShape.ColorFill);
+           MainWindow.ColorFill.setBackground(((Canvas)MainWindow.jPanel2).ConstructShape.ColorFill);
            if (!((Canvas)MainWindow.jPanel2).ConstructShape.TypeBorder) MainWindow.TypeBorder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/punctir.png")));
            else MainWindow.TypeBorder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/splohnaya.png")));
            if (((Canvas)MainWindow.jPanel2).ConstructShape.Visible) MainWindow.visible.setSelected(true); else MainWindow.visible.setSelected(false);

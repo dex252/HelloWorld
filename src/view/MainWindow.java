@@ -156,14 +156,14 @@ public class MainWindow extends javax.swing.JFrame {
     label5 = new java.awt.Label();
     label6 = new java.awt.Label();
     Height = new java.awt.Label();
-    Xmin = new javax.swing.JTextField();
-    Ymin = new javax.swing.JTextField();
+    Xmin = new javax.swing.JTextField(3);
+    Ymin = new javax.swing.JTextField(3);
     Label7 = new java.awt.Label();
     Width = new java.awt.Label();
-    Xmax = new javax.swing.JTextField();
+    Xmax = new javax.swing.JTextField(3);
     label10 = new java.awt.Label();
     label11 = new java.awt.Label();
-    Ymax = new javax.swing.JTextField();
+    Ymax = new javax.swing.JTextField(3);
     jSeparator1 = new javax.swing.JSeparator();
     label7 = new java.awt.Label();
     label9 = new java.awt.Label();
@@ -203,7 +203,7 @@ public class MainWindow extends javax.swing.JFrame {
     TypeF3 = new javax.swing.JButton();
     TypeF4 = new javax.swing.JButton();
     TypeF5 = new javax.swing.JButton();
-     
+    
     TypeSpace.setSize(60, 160);
     TypeSpace.setLocation(87,360);
     TypeSpace.setBackground(Color.gray);
